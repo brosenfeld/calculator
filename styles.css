@@ -83,10 +83,12 @@ body {
 }
 
 .keypad_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1 1 0;
   cursor: pointer;
   font-weight: bold;
-  padding: 8px 0px;
   text-align: center;
 }
 
