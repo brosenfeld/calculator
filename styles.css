@@ -3,6 +3,30 @@ body {
   margin: 0px;
 }
 
+/* MODEBAR */
+#modebar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: black;
+  padding: 3px 5px;
+}
+
+#sign {
+  flex: 1 auto;
+}
+
+#length {
+  flex: 0 auto;
+}
+
+.mode_option {
+  display: inline;
+  color: white;
+  cursor: pointer;
+  padding: 0px 5px;
+}
+
 /* DISPLAY */
 .base {
   display: flex;
@@ -30,6 +54,10 @@ body {
 
 /* KEYPAD */
 
+#keypad {
+  border: 1px black solid;
+}
+
 .button_row {
   display: flex;
   flex-direction: row;
@@ -38,7 +66,6 @@ body {
 
 .keypad_button {
   flex: 1 1 0;
-  border: 1px solid black;
   cursor: pointer;
   font-weight: bold;
   padding: 8px 0px;
@@ -46,17 +73,18 @@ body {
 }
 
 .num {
-  background-color: #6699FF;
+  background-color: #FF8F00;
 }
 
 .num:active, .num.active {
-  background-color: #77CCFF;
+  background-color: #FFD299;
 }
 
 .op {
-  background-color: #4466FF;
+  background-color: black;
+  color: white;
 }
 
 .op:active, .num.active {
-  background-color: #5599FF
+  background-color: gray;
 }
