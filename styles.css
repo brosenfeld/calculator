@@ -1,5 +1,5 @@
-/* CSS file placeholder. */
 body {
+  font-family: Verdana, Geneva, sans-serif;
   margin: 0px;
 }
 
@@ -44,12 +44,14 @@ body {
 }
 
 .acc {
-  flex: 1 1 0
+  flex: 1 1 0;
+  cursor: pointer;
 }
 
 #bin {
   height: 100px;
   border: 1px solid black;
+  cursor: pointer;
 }
 
 /* KEYPAD */
