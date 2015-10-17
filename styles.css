@@ -1,1 +1,62 @@
 /* CSS file placeholder. */
+body {
+  margin: 0px;
+}
+
+/* DISPLAY */
+.base {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 50px;
+  border: 1px solid black;
+}
+
+.label {
+  flex: 0 0 auto;
+  font-weight: bold;
+  font-size: 18px;
+  margin: auto 5px;
+}
+
+.acc {
+  flex: 1 1 0
+}
+
+#bin {
+  height: 100px;
+  border: 1px solid black;
+}
+
+/* KEYPAD */
+
+.button_row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.keypad_button {
+  flex: 1 1 0;
+  border: 1px solid black;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 0px;
+  text-align: center;
+}
+
+.num {
+  background-color: #6699FF;
+}
+
+.num:active, .num.active {
+  background-color: #77CCFF;
+}
+
+.op {
+  background-color: #4466FF;
+}
+
+.op:active, .num.active {
+  background-color: #5599FF
+}
