@@ -91,3 +91,8 @@ $( ".base" ).click(function() {
       break;
   }
 });
+
+/* SET INITIAL STATE: signed, hex, 64-bit */
+$( "#hex" ).click();
+$( "#signed" ).click();
+$( "#bit64" ).click();
