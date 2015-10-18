@@ -9,14 +9,14 @@
 <body>
   <div id="modebar">
     <div>
-      <div class="mode_option">signed</div>
-      <div class="mode_option">unsigned</div>
+      <div class="mode_option sign">signed</div>
+      <div class="mode_option sign">unsigned</div>
     </div>
     <div>
-      <div class="mode_option">8</div>
-      <div class="mode_option">16</div>
-      <div class="mode_option">32</div>
-      <div class="mode_option">64</div>
+      <div class="mode_option bit_length">8</div>
+      <div class="mode_option bit_length">16</div>
+      <div class="mode_option bit_length">32</div>
+      <div class="mode_option bit_length">64</div>
     </div>
   </div>
   <div id="display">
@@ -28,7 +28,7 @@
       <div class="label">HEX</div>
       <div class="acc"></div>
     </div>
-    <div id="bin">
+    <div class="base" id="bin">
     </div>
   </div>
   <div id="keypad">
@@ -81,6 +81,8 @@
       <div class="keypad_button op">=</div>
     </div>
   </div>
+  <script src="jquery/jquery-2.1.4.min.js"></script>
   <script src="main.js"></script>
+  <script src="view.js"></script>
 </body>
 </html>

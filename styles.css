@@ -45,6 +45,7 @@ body {
   flex-wrap: nowrap;
   height: 50px;
   border: 1px solid black;
+  cursor: pointer;
 }
 
 .label {
@@ -56,13 +57,10 @@ body {
 
 .acc {
   flex: 1 1 0;
-  cursor: pointer;
 }
 
 #bin {
   height: 100px;
-  border: 1px solid black;
-  cursor: pointer;
 }
 
 /* KEYPAD */
@@ -96,7 +94,7 @@ body {
   background-color: #FF8F00;
 }
 
-.num:active, .num.active {
+.num:active {
   background-color: #FFD299;
 }
 
@@ -105,6 +103,6 @@ body {
   color: white;
 }
 
-.op:active, .num.active {
+.op:active {
   background-color: gray;
 }
