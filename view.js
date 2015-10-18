@@ -22,7 +22,7 @@ function opMousedownHandler() {
 }
 
 function opMouseupHandler() {
-  setBackgroundColor($( this ), opBackgroundColor());
+  setBackgroundColor($( this ), opBackgroundColor;
 }
 
 function setupNumMouseEvents() {
