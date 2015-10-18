@@ -94,15 +94,7 @@ body {
   background-color: #FF8F00;
 }
 
-.num:active {
-  background-color: #FFD299;
-}
-
 .op {
   background-color: black;
   color: white;
-}
-
-.op:active {
-  background-color: gray;
 }
