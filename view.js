@@ -9,32 +9,36 @@ function setBackgroundColor(button, color) {
   button.css("background-color", color);
 }
 
-function numMousedownHandler() {
+function numStartClickHandler() {
   setBackgroundColor($( this ), numActiveColor);
 }
 
-function numMouseupHandler() {
+function numEndClickHandler() {
   setBackgroundColor($( this ), numBackgroundColor);
 }
 
-function opMousedownHandler() {
+function opStartClickHandler() {
   setBackgroundColor($( this ), opActiveColor);
 }
 
-function opMouseupHandler() {
-  setBackgroundColor($( this ), opBackgroundColor;
+function opEndClickHandler() {
+  setBackgroundColor($( this ), opBackgroundColor);
 }
 
-function setupNumMouseEvents() {
-  $( this ).mousedown(numMousedownHandler).mouseup(numMouseupHandler);
+function setupNumEvents() {
+  $( this ).mousedown(numStartClickHandler).mouseup(numEndClickHandler);
+  $( this ).on("touchstart", numStartClickHandler);
+  $( this ).on("touchend", numEndClickHandler);
 }
 
-function setupOpMouseEvents() {
-  $( this ).mousedown(opMousedownHandler).mouseup(opMouseupHandler);
+function setupOpEvents() {
+  $( this ).mousedown(opStartClickHandler).mouseup(opEndClickHandler);
+  $( this ).on("touchstart", opStartClickHandler);
+  $( this ).on("touchend", opEndClickHandler);
 }
 
-$(" .num ").each(setupNumMouseEvents);
-$(" .op  ").each(setupOpMouseEvents);
+$(" .num ").each(setupNumEvents);
+$(" .op  ").each(setupOpEvents);
 
 
 /* SET UP SIGN AND BIT LENGTH MODES */
@@ -55,11 +59,12 @@ $( ".bit_length" ).click(function() {
 function disableNumber() {
     $( this ).css("color", numBackgroundColor);
     $( this ).off("mouseup").off("mousedown");
+    $( this ).off("touchstart").off("touchend");
 }
 
 function enableNumber() {
     $( this ).css("color", "black");
-    $( this ).each(setupNumMouseEvents);
+    $( this ).each(setupNumEvents);
 }
 
 function disableAll(base) {
