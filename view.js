@@ -43,16 +43,46 @@ $(" .op  ").each(setupOpEvents);
 
 
 /* SET UP SIGN AND BIT LENGTH MODES */
+var enabledBitsColor = "black";
+var disabledBitsColor = "#C0C0C0";
+
 $( ".sign" ).click(function() {
   $( ".sign" ).css("color", "white");
   $( this ).css("color", "#FF8F00");
   // var signed = ($(this).text() == "signed");
 });
 
+function disableAllBits() {
+  $( ".bin_row" ).css("color", disabledBitsColor);
+}
+
+function enableBits() {
+  $( this ).css("color", enabledBitsColor);
+}
+
 $( ".bit_length" ).click(function() {
   $( ".bit_length" ).css("color", "white");
   $( this ).css("color", "#FF8F00");
-  // var mode = parseInt($(this).text());
+  var mode = parseInt($(this).text());
+  switch (mode) {
+    case 8:
+      disableAllBits();
+      $( "#bin_label16 ").each(enableBits);
+      $( "#bits0-7 ").each(enableBits);
+      break;
+    case 16:
+      disableAllBits();
+      $( "#bin16 ").each(enableBits);
+      break;
+    case 32:
+      disableAllBits();
+      $( "#bin16 ").each(enableBits);
+      $( "#bin32 ").each(enableBits);
+      break;
+    default:
+      $( ".bin_row" ).each(enableBits);
+      break;
+  }
 });
 
 

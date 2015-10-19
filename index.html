@@ -28,7 +28,7 @@
       <div class="label">HEX</div>
       <div class="acc"></div>
     </div>
-    <div class="base" id="bin" style="fon">
+    <div class="base" id="bin">
       <div class="bin_row">
         <div class="bin_label">[63-48]</div>
         <div class="bits">0000 0000 0000 0000</div>
@@ -37,13 +37,15 @@
         <div class="bin_label">[47-32]</div>
         <div class="bits">0000 0000 0000 0000</div>
       </div>
-      <div class="bin_row">
+      <div class="bin_row" id="bin32">
         <div class="bin_label">[31-16]</div>
         <div class="bits">0000 0000 0000 0000</div>
       </div>
-      <div class="bin_row">
-        <div class="bin_label">[15-00]</div>
-        <div class="bits">0000 0000 0000 0000</div>
+      <div class="bin_row" id="bin16">
+        <div class="bin_label" id="bin_label16">[15-00]</div>
+        <div class="bits">
+          <span>0000 0000 </span>
+          <span id="bits0-7">0000 0000</span></div>
       </div>
     </div>
   </div>

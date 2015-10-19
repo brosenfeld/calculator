@@ -66,6 +66,7 @@ body {
 #bin {
   flex-direction: column;
   height: 100px;
+  font-weight: bold;
 }
 
 .bin_row {
