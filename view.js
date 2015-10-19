@@ -1,6 +1,7 @@
 /* SET UP MOUSE HANDLERS */
 var numBackgroundColor = "#FF8F00"; // Keep synced with CSS.
 var numActiveColor = "#FFD299";
+var numDisabledColor = "#E68100";
 
 var opBackgroundColor = "black"; // Keep synced with CSS.
 var opActiveColor = "gray";
@@ -57,7 +58,7 @@ $( ".bit_length" ).click(function() {
 
 /* SET UP BASES */
 function disableNumber() {
-    $( this ).css("color", numBackgroundColor);
+    $( this ).css("color", numDisabledColor);
     $( this ).off("mouseup").off("mousedown");
     $( this ).off("touchstart").off("touchend");
 }
