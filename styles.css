@@ -64,8 +64,19 @@ body {
 }
 
 #bin {
+  flex-direction: column;
   height: 100px;
 }
+
+.bin_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 auto;
+  padding: 0px 20px;
+}
+
 
 /* KEYPAD */
 
