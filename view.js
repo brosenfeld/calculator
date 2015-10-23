@@ -46,10 +46,18 @@ $(" .op  ").each(setupOpEvents);
 var enabledBitsColor = "black";
 var disabledBitsColor = "#C0C0C0";
 
+var enabledOpColor = "white";
+var disabledOpColor = "#333333";
+
 $( ".sign" ).click(function() {
   $( ".sign" ).css("color", "white");
   $( this ).css("color", "#FF8F00");
-  // var signed = ($(this).text() == "signed");
+  var signed = ($(this).text() == "signed");
+  if (signed) {
+    $( ".op_signed" ).css("color", enabledOpColor);
+  } else {
+    $( ".op_signed" ).css("color", disabledOpColor);
+  }
 });
 
 function disableAllBits() {
