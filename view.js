@@ -2,11 +2,27 @@
 function View(calc) {
   var model = calc;
   var view = this;
+  var base = 64;
+  
+  function setupBin(hexString) {
+    var length = hexString.length;
+    // Assumes length is less than base / 4. Should check.
+    for (i = 0; i < length; i++) {
+      // Start from the least significant digit of the hex string.
+      var hexDigit = hexString.charAt(length - 1 - i);
+      $( "#hex" + i ).text(hexDigitToPaddedBin(hexDigit));
+    }
+    for (i = length; i < (base / 4); i++) {
+      $( "#hex" + i ).text(hexDigitToPaddedBin("0"));
+    }
+  }
   
   function updateDisplay() {
     var operand = calc.getOperand();
-    $( '#dec > .acc' ).text(operand.toString());
-    $( '#hex > .acc' ).text(operand.toString(16).toUpperCase());
+    $( "#dec > .acc" ).text(operand.toString());
+    var hexString = operand.toString(16).toUpperCase();
+    $( "#hex > .acc" ).text(hexString);
+    setupBin(hexString);
   }
   
   function numStartClickHandler() {
