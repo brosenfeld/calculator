@@ -18,7 +18,7 @@ function View(calc) {
   }
   
   function updateDisplay() {
-    var operand = calc.getOperand();
+    var operand = calc.operand;
     $( "#dec > .acc" ).text(operand.toString());
     var hexString = operand.toString(16).toUpperCase();
     $( "#hex > .acc" ).text(hexString);
@@ -136,17 +136,17 @@ function View(calc) {
       case "bin":
         disableAll(decClass);
         disableAll(hexClass);
-        calc.setBase(2);
+        calc.base = 2;
         break;
       case "dec":
         enableAll(decClass);
         disableAll(hexClass);
-        calc.setBase(10);
+        calc.base = 10;
         break;
       case "hex":
         enableAll(decClass);
         enableAll(hexClass);
-        calc.setBase(16);
+        calc.base = 16;
         break;
     }
   });
