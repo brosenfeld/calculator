@@ -4,6 +4,7 @@
 function Calc() {
   this.accumulator = bigInt.zero; // The current state of the calc.
   this.base = 16;                 // The calculator's current base.
+  this.bitLength = 64;            // The calculator's current bit length.
   this.operand = bigInt.zero;     // The current operand being entered.
 }
 
