@@ -1,11 +1,22 @@
 /* View */
 function View(calc) {
+  var model = calc;
+  var view = this;
+  
+  function updateDisplay() {
+    var operand = calc.getOperand();
+    $( '#dec > .acc' ).text(operand);
+    $( '#hex > .acc' ).text(operand.toString(16).toUpperCase());
+  }
+  
   function numStartClickHandler() {
     setBackgroundColor($( this ), numActiveColor);
   }
 
   function numEndClickHandler() {
     setBackgroundColor($( this ), numBackgroundColor);
+    calc.numberEntered($( this ).text());
+    updateDisplay();
   }
 
   function opStartClickHandler() {
@@ -14,15 +25,27 @@ function View(calc) {
 
   function opEndClickHandler() {
     setBackgroundColor($( this ), opBackgroundColor);
+    calc.opEntered($( this ).text());
+    updateDisplay();
   }
 
   function setupNumEvents() {
+    // Clear the previous events (so they don't get duplicated).
+    $( this ).off("mouseup").off("mousedown");
+    $( this ).off("touchstart").off("touchend");
+    
+    // Add the events.
     $( this ).mousedown(numStartClickHandler).mouseup(numEndClickHandler);
     $( this ).on("touchstart", numStartClickHandler);
     $( this ).on("touchend", numEndClickHandler);
   }
 
   function setupOpEvents() {
+    // Clear the previous events (so they don't get duplicated).
+    $( this ).off("mouseup").off("mousedown");
+    $( this ).off("touchstart").off("touchend");
+    
+    // Add the events.
     $( this ).mousedown(opStartClickHandler).mouseup(opEndClickHandler);
     $( this ).on("touchstart", opStartClickHandler);
     $( this ).on("touchend", opEndClickHandler);
@@ -97,25 +120,26 @@ function View(calc) {
       case "bin":
         disableAll(decClass);
         disableAll(hexClass);
+        calc.setBase(2);
         break;
       case "dec":
         enableAll(decClass);
         disableAll(hexClass);
+        calc.setBase(10);
         break;
       case "hex":
         enableAll(decClass);
         enableAll(hexClass);
+        calc.setBase(16);
         break;
     }
   });
-
-  var model = calc;
-  var view = this;
 
   /* SET INITIAL STATE: signed, hex, 64-bit */
   $( "#hex" ).click();
   $( "#signed" ).click();
   $( "#bit64" ).click();
+  updateDisplay();
 }
 
 View.prototype.OnButtonClick = function(button) {

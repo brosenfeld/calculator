@@ -61,6 +61,10 @@ body {
 
 .acc {
   flex: 1 1 0;
+  font-weight: bold;
+  font-size: 18px;
+  margin: auto 5px;
+  text-align: right;
 }
 
 #bin {
