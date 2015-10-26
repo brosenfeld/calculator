@@ -5,7 +5,7 @@ function View(calc) {
   
   function updateDisplay() {
     var operand = calc.getOperand();
-    $( '#dec > .acc' ).text(operand);
+    $( '#dec > .acc' ).text(operand.toString());
     $( '#hex > .acc' ).text(operand.toString(16).toUpperCase());
   }
   

@@ -1,7 +1,7 @@
 function Calc() {
-  this.accumulator = 0;
+  this.accumulator = bigInt.zero;
   this.base = 16;
-  this.operand = 0;
+  this.operand = bigInt.zero;
 }
 
 Calc.prototype.getOperand = function() {
@@ -10,14 +10,14 @@ Calc.prototype.getOperand = function() {
 
 Calc.prototype.numberEntered = function(button) {
   var num = parseInt("0x" + button);
-  this.operand *= this.base;
-  this.operand += num;
+  this.operand = this.operand.times(this.base);
+  this.operand = this.operand.plus(num);
 };
 
 Calc.prototype.opEntered = function(op) {
   switch (op) {
     case "C":
-      this.operand = 0;
+      this.operand = bigInt.zero;
       break;
 
     default:

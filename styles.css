@@ -56,14 +56,13 @@ body {
   flex: 0 0 auto;
   font-weight: bold;
   font-size: 18px;
-  margin: auto 5px;
+  margin: auto 10px;
 }
 
 .acc {
   flex: 1 1 0;
-  font-weight: bold;
   font-size: 18px;
-  margin: auto 5px;
+  margin: auto 10px;
   text-align: right;
 }
 
