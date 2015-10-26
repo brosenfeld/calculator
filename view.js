@@ -140,3 +140,8 @@ $( ".base" ).click(function() {
 $( "#hex" ).click();
 $( "#signed" ).click();
 $( "#bit64" ).click();
+
+/* View */
+function View(calc) {
+  var model = calc;
+}
