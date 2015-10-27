@@ -4,9 +4,6 @@
  * @param {Calc} A calculator model.
  */
 function View(calc) {
-  var model = calc;  // The associated calculator model.
-  var view = this;
-
   /**
    * Displays the binary representation of a number.
    * @param {string} A string representation of a hexidecimal number.
@@ -28,14 +25,14 @@ function View(calc) {
       $( "#hex" + i ).text(hexDigitToPaddedBin("0"));
     }
   }
-  
+
   /**
-   * Updates the display to reflect the current operand.
+   * Updates the display to reflect the given value.
+   * @param {BigInteger} The value to show in the display.
    */
-  function updateDisplay() {
-    var operand = calc.operand;
-    $( "#dec > .acc" ).text(operand.toString());
-    var hexString = operand.toString(16).toUpperCase();
+  function updateDisplay(value) {
+    $( "#dec > .acc" ).text(value.toString(10));
+    var hexString = value.toString(16).toUpperCase();
     $( "#hex > .acc" ).text(hexString);
     displayBin(hexString);
   }
@@ -54,7 +51,7 @@ function View(calc) {
   function numEndClickHandler() {
     setBackgroundColor($( this ), numBackgroundColor);
     calc.numberEntered($( this ).text());
-    updateDisplay();
+    updateDisplay(calc.operand);
   }
 
   /**
@@ -70,8 +67,18 @@ function View(calc) {
    */
   function opEndClickHandler() {
     setBackgroundColor($( this ), opBackgroundColor);
-    calc.opEntered($( this ).text());
-    updateDisplay();
+    var op = $( this ).text();
+    calc.opEntered(op);
+
+    // Depending on the operation either show the operand or accumulator.
+    switch (op) {
+      case "C":
+        updateDisplay(calc.operand);
+        break;
+      default:
+        updateDisplay(calc.accumulator);
+        break;
+    }
   }
 
   /**
@@ -150,7 +157,9 @@ function View(calc) {
     }
 
     calc.setBitLength(mode);
-    updateDisplay();
+    
+    // TODO: Should show what is already being shown.
+    updateDisplay(calc.operand);
   });
 
   /* Set up the keypad buttons. */
@@ -223,5 +232,5 @@ function View(calc) {
   $( "#hex" ).click();
   $( "#signed" ).click();
   $( "#bit64" ).click();
-  updateDisplay();
+  updateDisplay(calc.accumulator);
 }

@@ -2,17 +2,38 @@
  * A calculator that supports different numerical bases and bit lengths. 
  */
 function Calc() {
-  this.accumulator = bigInt.zero; // The current state of the calc.
   this.base = 16;                 // The calculator's current base.
   this.bitLength = 64;            // The calculator's current bit length.
-  this.operand = bigInt.zero;     // The current operand being entered.
+
+  this.clearAccumulator = true;
+  this.clearOperand = true;
+  this.clearOperation = true;
 
   // The max value an operand or the accumulator can take.
   this.setBound = function() {
     this.bound = bigInt(2).pow(this.bitLength).minus(1);
   };
 
+  // Updates the state of the calculator.
+  this.updateState = function() {
+    if (this.clearAccumulator) {
+      this.accumulator = bigInt.zero;
+      this.clearAccumulator = false;
+    }
+
+    if (this.clearOperand) {
+      this.operand = bigInt.zero;
+      this.clearOperand = false;
+    }
+
+    if (this.clearOperation) {
+      this.operation = null;
+      this.clearOperation = false;
+    }
+  };
+
   this.setBound();
+  this.updateState();
 }
 
 /**
@@ -35,16 +56,31 @@ Calc.prototype.numberEntered = function(button) {
  * @param {string} The text of the button. Represents an operation.
  *
  * TODO: Handle other operations.
+ *
+ * An operator requires some combination of the following: clearing the
+ * accumulator, clearing the operand, doing an operation, and setting a
+ * new operation.
  */
 Calc.prototype.opEntered = function(op) {
   switch (op) {
+    case "AC":
+      this.clearAccumulator = true;
+      this.clearOperand = true;
+      this.clearOperator = true;
     case "C":
-      this.operand = bigInt.zero;
+      this.clearOperand = true;
       break;
-
     default:
       break;
   }
+
+  this.updateState();
+
+  /*
+  // Check unsigned overflow. Reduce modulo bound + 1.
+  if (this.accumulator.compare(this.bound) > 0) {
+    this.accumulator = this.accumulator.mod(this.bound.plus(1));
+  } */
 };
 
 /**
