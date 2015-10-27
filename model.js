@@ -70,6 +70,10 @@ Calc.prototype.opEntered = function(op) {
     case "C":
       this.clearOperand = true;
       break;
+    // TODO: Should only be active when there is an operand.
+    case "DEL":
+      this.operand = this.operand.divide(this.base);
+      break;
     default:
       break;
   }

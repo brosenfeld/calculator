@@ -72,7 +72,9 @@ function View(calc) {
 
     // Depending on the operation either show the operand or accumulator.
     switch (op) {
+      case "AC":
       case "C":
+      case "DEL":
         updateDisplay(calc.operand);
         break;
       default:
