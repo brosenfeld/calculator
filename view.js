@@ -148,6 +148,9 @@ function View(calc) {
         $( ".bin_row" ).each(enableBits);
         break;
     }
+
+    calc.setBitLength(mode);
+    updateDisplay();
   });
 
   /* Set up the keypad buttons. */

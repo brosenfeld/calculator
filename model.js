@@ -46,3 +46,15 @@ Calc.prototype.opEntered = function(op) {
       break;
   }
 };
+
+/**
+ * Update the max bit length. To insure proper behavior, this method should
+ * be used rather than directly setting the bit length.
+ * @param {number} The new bit length. Should be an integer.
+ *
+ * TODO: Cast the accumulator and operand.
+ */
+Calc.prototype.setBitLength = function(bitLength) {
+  this.bitLength = bitLength;
+  this.setBound();
+};
