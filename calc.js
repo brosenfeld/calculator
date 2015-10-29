@@ -62,24 +62,44 @@ Calc.prototype.numberEntered = function(button) {
  * new operation.
  */
 Calc.prototype.opEntered = function(op) {
-  switch (op) {
-    case "AC":
-      this.clearAccumulator = true;
-      this.clearOperand = true;
-      this.clearOperator = true;
-    case "C":
-      this.clearOperand = true;
-      break;
-    // TODO: Should only be active when there is an operand.
-    case "DEL":
-      this.operand = this.operand.divide(this.base);
-      break;
-    default:
-      break;
+  // Clear all of the calculator's state.
+  if (op == "AC") {
+    this.clearAccumulator = true;
+    this.clearOperand = true;
+    this.clearOperator = true;
+  }
+  // Clear the operand.
+  else if (op == "C") {
+    this.clearOperand = true;
+  }
+  // Delete the last digit entered.
+  else if (op == "DEL") {
+    // TODO: Should DEL only be active visually when there is an operand.
+    this.operand = this.operand.divide(this.base);
+  }
+  // If there is a pending operator, execute the operation.
+  else if (op == "=" && this.operator !== null) {
+    if (this.operator in binaryOperators) {
+      this.accumulator =
+        binaryOperators[this.operator](this.accumulator, this.operand);
+    }
+    this.clearOperand = true;
+    this.clearOperator = true;
+  }
+  // Handle binary operations.
+  else if (op in binaryOperators) {
+    // If there is no pending operator, then replace the accumulator with
+    // the current operand. Otherwise, execute the old operation on the
+    // accumulator and operand.
+    this.accumulator = (this.operator === null) ?
+      this.operand :
+      binaryOperators[op](this.accumulator, this.operand);
+
+    this.operator = op;
+    this.clearOperand = true;
   }
 
   this.updateState();
-
   /*
   // Check unsigned overflow. Reduce modulo bound + 1.
   if (this.accumulator.compare(this.bound) > 0) {
