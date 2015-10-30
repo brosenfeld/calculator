@@ -67,14 +67,14 @@ function View(calc) {
    */
   function opEndClickHandler() {
     setBackgroundColor($( this ), opBackgroundColor);
-    var op = $( this ).text();
+    var op = $( this ).attr('id');
     calc.opEntered(op);
 
     // Depending on the operation either show the operand or accumulator.
     switch (op) {
-      case "AC":
-      case "C":
-      case "DEL":
+      case OpEnum.ALL_CLEAR:
+      case OpEnum.CLEAR:
+      case OpEnum.DEL:
         updateDisplay(calc.operand);
         break;
       default:

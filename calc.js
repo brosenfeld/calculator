@@ -8,6 +8,7 @@ function Calc() {
   this.clearAccumulator = true;
   this.clearOperand = true;
   this.clearOperation = true;
+  this.hasEnteredNum = false;
 
   // The max value an operand or the accumulator can take.
   this.setBound = function() {
@@ -42,6 +43,8 @@ function Calc() {
  *     in the range 0-F or one of 00 or FF.
  */
 Calc.prototype.numberEntered = function(button) {
+  this.hasEnteredNum = true;
+  
   // Multiply the operand by the base raised to the number of digits added.
   // That is, 00 should be handled differently than 0.
   var new_operand = this.operand.times(Math.pow(this.base, button.length));
@@ -53,49 +56,54 @@ Calc.prototype.numberEntered = function(button) {
 
 /**
  * Called when the user presses a button corresponding to an operation.
- * @param {string} The text of the button. Represents an operation.
+ * @param {OpEnum} The operation.
  *
  * TODO: Handle other operations.
  *
- * An operator requires some combination of the following: clearing the
+ * An operation requires some combination of the following: clearing the
  * accumulator, clearing the operand, doing an operation, and setting a
  * new operation.
  */
 Calc.prototype.opEntered = function(op) {
   // Clear all of the calculator's state.
-  if (op == "AC") {
+  if (op == OpEnum.ALL_CLEAR) {
     this.clearAccumulator = true;
     this.clearOperand = true;
-    this.clearOperator = true;
+    this.clearOperation = true;
   }
   // Clear the operand.
-  else if (op == "C") {
+  else if (op == OpEnum.CLEAR) {
     this.clearOperand = true;
   }
   // Delete the last digit entered.
-  else if (op == "DEL") {
+  else if (op == OpEnum.DEL) {
     // TODO: Should DEL only be active visually when there is an operand.
     this.operand = this.operand.divide(this.base);
   }
-  // If there is a pending operator, execute the operation.
-  else if (op == "=" && this.operator !== null) {
-    if (this.operator in binaryOperators) {
+  // If there is a pending operation, execute the operation.
+  else if (op == OpEnum.EQUALS && this.operation !== null) {
+    if (this.operation in binaryOperations) {
       this.accumulator =
-        binaryOperators[this.operator](this.accumulator, this.operand);
+        binaryOperations[this.operation](this.accumulator, this.operand);
     }
     this.clearOperand = true;
-    this.clearOperator = true;
+    this.clearOperation = true;
+    this.hasEnteredNum = false;
   }
   // Handle binary operations.
-  else if (op in binaryOperators) {
-    // If there is no pending operator, then replace the accumulator with
-    // the current operand. Otherwise, execute the old operation on the
-    // accumulator and operand.
-    this.accumulator = (this.operator === null) ?
-      this.operand :
-      binaryOperators[op](this.accumulator, this.operand);
+  else if (op in binaryOperations) {
+    // If the user has entered a number, proceed with processing the operation.
+    // Otherwise, replace any pending operation with the new one.
+    if (this.hasEnteredNum) {
+      // If there is no pending operation, then replace the accumulator with
+      // the current operand. Otherwise, execute the old operation on the
+      // accumulator and operand.
+      this.accumulator = (this.operation === null) ?
+        this.operand :
+        binaryOperations[this.operation](this.accumulator, this.operand);
+    }
 
-    this.operator = op;
+    this.operation = op;
     this.clearOperand = true;
   }
 
