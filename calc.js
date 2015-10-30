@@ -106,6 +106,17 @@ Calc.prototype.opEntered = function(op) {
     this.operation = op;
     this.clearOperand = true;
   }
+  // Handle unary operations.
+  else if (op in unaryOperations) {
+    if (this.operation === null) {
+      var argument = this.hasEnteredNum ? this.operand : this.accumulator;
+      this.accumulator = unaryOperations[op](argument);
+      this.clearOperand = true;
+      this.hasEnteredNum = false;
+    } else {
+      this.operand = unaryOperations[op](this.operand);
+    }
+  }
 
   this.updateState();
   /*
