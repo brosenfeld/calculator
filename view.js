@@ -112,6 +112,23 @@ function View(calc) {
   }
 
   /**
+   * Enable an operation button.
+   */
+  function enableOp() {
+     $( this ).css("color", enabledOpColor);
+     $( this ).each(setupOpEvents);
+  }
+
+  /**
+   * Disables an operation button.
+   */
+  function disableOp() {
+    $( this ).css("color", disabledOpColor);
+    $( this ).off("mouseup").off("mousedown");
+    $( this ).off("touchstart").off("touchend");
+  }
+
+  /**
    * Handle mode changes for signed and unsigned.
    */
   $( ".sign" ).click(function() {
@@ -122,9 +139,9 @@ function View(calc) {
     // Enable or disable the appropriate operations.
     var signed = ($(this).text() == "signed");
     if (signed) {
-      $( ".op_signed" ).css("color", enabledOpColor);
+      $( ".op_signed" ).each(enableOp);
     } else {
-      $( ".op_signed" ).css("color", disabledOpColor);
+      $( ".op_signed" ).each(disableOp);
     }
   });
 
