@@ -3,7 +3,7 @@
  */
 var unaryOperations = {};
 
-unaryOperations[OpEnum.NEG] = function(value) {
+unaryOperations[OpEnum.PLUS_MINUS] = function(value) {
   return value.negate();
 };
 

@@ -8,7 +8,7 @@ function Calc() {
   this.clearAccumulator = true;
   this.clearOperand = true;
   this.clearOperation = true;
-  this.hasEnteredNum = false;
+  this.hasOperand = false;
 
   // The max value an operand or the accumulator can take.
   this.setBound = function() {
@@ -43,7 +43,7 @@ function Calc() {
  *     in the range 0-F or one of 00 or FF.
  */
 Calc.prototype.numberEntered = function(button) {
-  this.hasEnteredNum = true;
+  this.hasOperand = true;
   
   // Multiply the operand by the base raised to the number of digits added.
   // That is, 00 should be handled differently than 0.
@@ -88,13 +88,13 @@ Calc.prototype.opEntered = function(op) {
     }
     this.clearOperand = true;
     this.clearOperation = true;
-    this.hasEnteredNum = false;
+    this.hasOperand = false;
   }
   // Handle binary operations.
   else if (op in binaryOperations) {
     // If the user has entered a number, proceed with processing the operation.
     // Otherwise, replace any pending operation with the new one.
-    if (this.hasEnteredNum) {
+    if (this.hasOperand) {
       // If there is no pending operation, then replace the accumulator with
       // the current operand. Otherwise, execute the old operation on the
       // accumulator and operand.
@@ -109,10 +109,10 @@ Calc.prototype.opEntered = function(op) {
   // Handle unary operations.
   else if (op in unaryOperations) {
     if (this.operation === null) {
-      var argument = this.hasEnteredNum ? this.operand : this.accumulator;
+      var argument = this.hasOperand ? this.operand : this.accumulator;
       this.accumulator = unaryOperations[op](argument);
       this.clearOperand = true;
-      this.hasEnteredNum = false;
+      this.hasOperand = false;
     } else {
       this.operand = unaryOperations[op](this.operand);
     }

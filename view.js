@@ -71,15 +71,13 @@ function View(calc) {
     calc.opEntered(op);
 
     // Depending on the operation either show the operand or accumulator.
-    switch (op) {
-      case OpEnum.ALL_CLEAR:
-      case OpEnum.CLEAR:
-      case OpEnum.DEL:
-        updateDisplay(calc.operand);
-        break;
-      default:
-        updateDisplay(calc.accumulator);
-        break;
+    if (op == OpEnum.ALL_CLEAR || op == OpEnum.CLEAR || op == OpEnum.DEL) {
+      updateDisplay(calc.operand);
+    } else if (op in binaryOperations || op == OpEnum.EQUALS) {
+      updateDisplay(calc.accumulator);
+    } else if (op in unaryOperations) {
+      if (calc.hasOperand) updateDisplay(calc.operand);
+      else updateDisplay(calc.accumulator);
     }
   }
 
