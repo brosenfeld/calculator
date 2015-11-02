@@ -7,8 +7,8 @@
 * TODO: May want to highlight the active operation.
 
 ## Display
-* Entering positive numbers properly shows decimal, binary, hex and limits the number to a max size.
-* Negative numbers use the hex and binary representation for the positive number that corresponds to the magnitude. This is a function of how the BigInteger library returns hex strings and requires additional custom logic to fix.
+* Entering positive numbers properly shows decimal, binary, and hex and limits the number to a max size.
+* Entering negative numbers properly shows decimal, binary, and hex but does not do proper bounds checking.
 
 ## Calculator
 * AC, C, DEL seem to be working properly.

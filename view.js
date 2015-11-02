@@ -27,12 +27,24 @@ function View(calc) {
   }
 
   /**
+   * Given a negaive BigInteger returns the appropriate hex representation.
+   * @param {number} A negative BigInteger
+   * @param {length} An int representing the max bit length for a number.
+   * @return {String} A hex string representing the number.
+   */
+  function getHexNegative(number, length) {
+    return getEquivalentPositive(number, length).toString(16).toUpperCase();
+  }
+
+  /**
    * Updates the display to reflect the given value.
    * @param {BigInteger} The value to show in the display.
    */
   function updateDisplay(value) {
     $( "#dec > .acc" ).text(value.toString(10));
-    var hexString = value.toString(16).toUpperCase();
+    var hexString = (value < 0) ?
+      getHexNegative(value, calc.bitLength) :
+      value.toString(16).toUpperCase();
     $( "#hex > .acc" ).text(hexString);
     displayBin(hexString);
   }
