@@ -48,7 +48,13 @@ Calc.prototype.numberEntered = function(button) {
   // Multiply the operand by the base raised to the number of digits added.
   // That is, 00 should be handled differently than 0.
   var new_operand = this.operand.times(Math.pow(this.base, button.length));
-  new_operand = new_operand.plus(parseInt("0x" + button));
+
+  // If the operand is zero or positive, add the button's value.
+  // Otherwise, subtract the button's value.
+  var value = parseInt("0x" + button);
+  new_operand = (this.operand.compare(bigInt.zero) >= 0) ?
+    new_operand.plus(value) :
+    new_operand.minus(value);
 
   // Only update the operand if the new operand would be in bounds.
   if (new_operand.compare(this.bound) <= 0) this.operand = new_operand;
@@ -89,6 +95,13 @@ Calc.prototype.opEntered = function(op) {
     this.clearOperand = true;
     this.clearOperation = true;
     this.hasOperand = false;
+  }
+  else if (op == OpEnum.PLUS_MINUS) {
+    if (this.hasOperand) {
+      this.operand = this.operand.negate();
+    } else {
+      this.accumulator = this.accumulator.negate();
+    }
   }
   // Handle binary operations.
   else if (op in binaryOperations) {
