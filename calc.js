@@ -218,6 +218,19 @@ Calc.prototype.setBase = function(base, representsBits) {
  * TODO: Cast the accumulator and operand.
  */
 Calc.prototype.setBitLength = function(bitLength) {
+  var oldBitLength = this.bitLength;
   this.bitLength = bitLength;
   this.setBounds();
+
+  if (this.isSigned) {
+    // Will implicitly sign extend.
+    if (this.bitLength < oldBitLength) {
+      this.accumulator = truncateSigned(this.accumulator, this.bitLength);
+      this.operand = truncateSigned(this.operand, this.bitLength);
+    }
+  } else {
+    // Check accumulator and operand and cut them down to the right bit length.
+    this.accumulator = this.accumulator.and(this.usUpperBound);
+    this.operand = this.operand.and(this.usUpperBound);
+  }
 };

@@ -4,6 +4,8 @@
  * @param {Calc} A calculator model.
  */
 function View(calc) {
+  var BIT_DISPLAY_LENGTH = 64;
+
   /**
    * Displays the binary representation of a number.
    * @param {string} A string representation of a hexidecimal number.
@@ -21,7 +23,7 @@ function View(calc) {
     }
 
     // Set the remaining bits to 0.
-    for (i = length; i < (calc.bitLength / 4); i++) {
+    for (i = length; i < (BIT_DISPLAY_LENGTH / 4); i++) {
       $( "#hex" + i ).text(hexDigitToPaddedBin("0"));
     }
   }
@@ -153,6 +155,9 @@ function View(calc) {
     } else {
       $( ".op_signed" ).each(disableOp);
     }
+
+    // TODO: Switch this to using a setter.
+    calc.isSigned = signed;
   });
 
   /**
