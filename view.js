@@ -242,20 +242,17 @@ function View(calc) {
       case "bin":
         disableAll(decClass);
         disableAll(hexClass);
-        calc.base = 2;
-        calc.baseRepresentsBits = true;
+        calc.setBase(2, true);
         break;
       case "dec":
         enableAll(decClass);
         disableAll(hexClass);
-        calc.base = 10;
-        calc.baseRepresentsBits = false;
+        calc.setBase(10, false);
         break;
       case "hex":
         enableAll(decClass);
         enableAll(hexClass);
-        calc.base = 16;
-        calc.baseRepresentsBits = true;
+        calc.setBase(16, true);
         break;
     }
   });

@@ -2,7 +2,7 @@
  * A calculator that supports different numerical bases and bit lengths. 
  */
 function Calc() {
-  this.baseRepresentBits = true;  // Does the current base represent the bits?
+  this.baseRepresentsBits = true; // Does the current base represent the bits?
   this.base = 16;                 // The calculator's current base.
   this.bitLength = 64;            // The calculator's current bit length.
   this.isSigned = true;
@@ -196,6 +196,18 @@ Calc.prototype.opEntered = function(op) {
   if (this.accumulator.compare(this.bound) > 0) {
     this.accumulator = this.accumulator.mod(this.bound.plus(1));
   } */
+};
+
+/**
+ * Updates the calculator's base. To insure proper behavior, this method should
+ * be used rather than directly setting the base.
+ * @param {number} The new base. Should be an integer.
+ * @param {boolean} Does the new base correspond to a bit representation?
+ *     For hex, this would be true. For decimal this would be false.
+ */
+Calc.prototype.setBase = function(base, representsBits) {
+  this.base = base;
+  this.baseRepresentsBits = representsBits;
 };
 
 /**
