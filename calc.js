@@ -67,7 +67,7 @@ Calc.prototype.bitsEntered = function(button) {
     // If we're in the signed mode and the operand is greater than the signed
     // upper bound, convert it to a negative number.
     if (this.isSigned && new_operand.compare(this.sUpperBound) > 0) {
-      this.operand = new_operand.minus(this.usUpperBound).minus(1);
+      this.operand = getEquivalentNegative(new_operand, this.bitLength);
     } else {
       this.operand = new_operand;
     }
