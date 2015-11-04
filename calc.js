@@ -139,8 +139,12 @@ Calc.prototype.opEntered = function(op) {
   // Delete the last digit entered.
   else if (op == OpEnum.DEL) {
     // TODO: Should DEL only be active visually when there is an operand.
-    // TODO: Fix for binary and hex.
-    this.operand = this.operand.divide(this.base);
+    // If the number represents bits, but the operand is negative,
+    // convert to the positive number.
+    this.operand = (this.baseRepresentsBits && this.operand.compare(0) < 0 ?
+        getEquivalentPositive(this.operand, this.bitLength) :
+        this.operand)
+      .divide(this.base);
   }
   // If there is a pending operation, execute the operation.
   else if (op == OpEnum.EQUALS && this.operation !== null) {
