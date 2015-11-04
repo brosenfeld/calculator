@@ -11,6 +11,7 @@
 * Entering positive or negative numbers properly shows decimal, binary, and hex and does bounds checking.
 
 ## Calculator
+* Handles changes in bit length.
 * AC, C, DEL seem to be working properly.
 * Control flow also seems to be working properly.
-* For other operations, the calculator currently uses the BigInteger methods. Because this library doesn't account for signed/unsigned or bit length those features are not yet handled.
+* For other operations, the calculator currently uses the BigInteger methods. Because this library doesn't account for signed/unsigned or bit length those features are not yet fully handled.
