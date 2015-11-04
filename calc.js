@@ -138,7 +138,6 @@ Calc.prototype.opEntered = function(op) {
   }
   // Delete the last digit entered.
   else if (op == OpEnum.DEL) {
-    // TODO: Should DEL only be active visually when there is an operand.
     // If the number represents bits, but the operand is negative,
     // convert to the positive number.
     this.operand = (this.baseRepresentsBits && this.operand.compare(0) < 0 ?

@@ -5,10 +5,10 @@
 * Changes between signed and unsigned are reflected in the available operations.
 * Changes in bit length are shown in the binary representation.
 * TODO: May want to highlight the active operation.
+* TODO: Should delete only be active when there is an operand?
 
 ## Display
-* Entering positive numbers properly shows decimal, binary, and hex and limits the number to a max size.
-* Entering negative numbers properly shows decimal, binary, and hex but does not do proper bounds checking.
+* Entering positive or negative numbers properly shows decimal, binary, and hex and does bounds checking.
 
 ## Calculator
 * AC, C, DEL seem to be working properly.
