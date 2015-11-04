@@ -59,17 +59,17 @@ Calc.prototype.bitsEntered = function(button) {
 
   // Multiply the operand by the base raised to the number of digits added.
   // That is, 00 should be handled differently than 0.
-  var new_operand = this.operand.times(Math.pow(this.base, button.length));
-  new_operand = new_operand.plus(value);
+  var newOperand = this.operand.times(Math.pow(this.base, button.length));
+  newOperand = newOperand.plus(value);
 
   // Only update the operand if the new operand would be in bounds.
-  if (new_operand.compare(this.usUpperBound) <= 0) {
+  if (newOperand.compare(this.usUpperBound) <= 0) {
     // If we're in the signed mode and the operand is greater than the signed
     // upper bound, convert it to a negative number.
-    if (this.isSigned && new_operand.compare(this.sUpperBound) > 0) {
-      this.operand = getEquivalentNegative(new_operand, this.bitLength);
+    if (this.isSigned && newOperand.compare(this.sUpperBound) > 0) {
+      this.operand = getEquivalentNegative(newOperand, this.bitLength);
     } else {
-      this.operand = new_operand;
+      this.operand = newOperand;
     }
   }
 };
@@ -85,20 +85,20 @@ Calc.prototype.digitEntered = function(number) {
 
   this.hasOperand = true;
 
-  var new_operand = this.operand.times(this.base);
+  var newOperand = this.operand.times(this.base);
 
   // If the operand is zero or positive, add the button's value.
   // Otherwise, subtract the button's value.
-  new_operand = (this.operand.compare(bigInt.zero) >= 0) ?
-    new_operand.plus(number) :
-    new_operand.minus(number);
+  newOperand = (this.operand.compare(bigInt.zero) >= 0) ?
+    newOperand.plus(number) :
+    newOperand.minus(number);
 
   // Check bounds.
   if (this.isSigned) {
-    if ((new_operand.compare(this.sLowerBound) >= 0) &&
-      (new_operand.compare(this.sUpperBound) <= 0)) this.operand = new_operand;
-  } else if (new_operand.compare(this.usUpperBound) <= 0) {
-    this.operand = new_operand;
+    if ((newOperand.compare(this.sLowerBound) >= 0) &&
+      (newOperand.compare(this.sUpperBound) <= 0)) this.operand = newOperand;
+  } else if (newOperand.compare(this.usUpperBound) <= 0) {
+    this.operand = newOperand;
   }
 };
 
@@ -113,7 +113,7 @@ Calc.prototype.numberEntered = function(button) {
   } else {
     this.digitEntered(parseInt(button));
   }
-}
+};
 
 /**
  * Called when the user presses a button corresponding to an operation.
