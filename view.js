@@ -243,16 +243,19 @@ function View(calc) {
         disableAll(decClass);
         disableAll(hexClass);
         calc.base = 2;
+        calc.baseRepresentsBits = true;
         break;
       case "dec":
         enableAll(decClass);
         disableAll(hexClass);
         calc.base = 10;
+        calc.baseRepresentsBits = false;
         break;
       case "hex":
         enableAll(decClass);
         enableAll(hexClass);
         calc.base = 16;
+        calc.baseRepresentsBits = true;
         break;
     }
   });
