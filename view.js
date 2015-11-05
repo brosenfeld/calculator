@@ -180,8 +180,9 @@ function View(calc) {
       $( ".op_signed" ).each(disableOp);
     }
 
-    // TODO: Switch this to using a setter.
-    calc.isSigned = signed;
+    calc.setIsSigned(signed);
+    // TODO: Update display;
+    updateDisplay(calc.operand);
   });
 
   /**

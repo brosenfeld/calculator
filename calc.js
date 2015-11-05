@@ -214,8 +214,6 @@ Calc.prototype.setBase = function(base, representsBits) {
  * Update the max bit length. To insure proper behavior, this method should
  * be used rather than directly setting the bit length.
  * @param {number} The new bit length. Should be an integer.
- *
- * TODO: Cast the accumulator and operand.
  */
 Calc.prototype.setBitLength = function(bitLength) {
   var oldBitLength = this.bitLength;
@@ -233,4 +231,23 @@ Calc.prototype.setBitLength = function(bitLength) {
     this.accumulator = this.accumulator.and(this.usUpperBound);
     this.operand = this.operand.and(this.usUpperBound);
   }
+};
+
+/**
+ * Update the mode for signed or unsigned. To insure proper behavior, this
+ * method should be used rather than directly setting isSigned.
+ * @param {boolean} Should the calculator be signed?
+ */
+Calc.prototype.setIsSigned = function(isSigned) {
+  if (this.isSigned == isSigned) return;
+
+  if (isSigned) {
+    this.accumulator = unsignedToSigned(this.accumulator, this.bitLength);
+    this.operand = unsignedToSigned(this.operand, this.bitLength);
+  }
+  else {
+    this.accumulator = getEquivalentPositive(this.accumulator, this.bitLength);
+    this.operand = getEquivalentPositive(this.operand, this.bitLength);
+  }
+  this.isSigned = isSigned;
 };
