@@ -38,6 +38,13 @@ function Calc() {
     }
   };
 
+  // Keeps a number in the calculator's bounds.
+  this.keepInBounds = function(number) {
+    return this.isSigned ?
+      truncateSigned(number, this.bitLength) :
+      number.and(this.usUpperBound);
+  };
+
   this.setBounds();
   this.updateState();
 }
@@ -149,8 +156,9 @@ Calc.prototype.opEntered = function(op) {
   // If there is a pending operation, execute the operation.
   else if (op == OpEnum.EQUALS && this.operation !== null) {
     if (this.operation in binaryOperations) {
+      var binop = binaryOperations[this.operation];
       this.accumulator =
-        binaryOperations[this.operation](this.accumulator, this.operand);
+        this.keepInBounds(binop(this.accumulator, this.operand));
     }
     this.clearOperand = true;
     this.clearOperation = true;
@@ -165,6 +173,8 @@ Calc.prototype.opEntered = function(op) {
   }
   // Handle binary operations.
   else if (op in binaryOperations) {
+    var binop = binaryOperations[this.operation];
+
     // If the user has entered a number, proceed with processing the operation.
     // Otherwise, replace any pending operation with the new one.
     if (this.hasOperand) {
@@ -173,7 +183,7 @@ Calc.prototype.opEntered = function(op) {
       // accumulator and operand.
       this.accumulator = (this.operation === null) ?
         this.operand :
-        binaryOperations[this.operation](this.accumulator, this.operand);
+        this.keepInBounds(binop(this.accumulator, this.operand));
     }
 
     this.operation = op;
@@ -183,20 +193,15 @@ Calc.prototype.opEntered = function(op) {
   else if (op in unaryOperations) {
     if (this.operation === null) {
       var argument = this.hasOperand ? this.operand : this.accumulator;
-      this.accumulator = unaryOperations[op](argument);
+      this.accumulator = this.keepInBounds(unaryOperations[op](argument));
       this.clearOperand = true;
       this.hasOperand = false;
     } else {
-      this.operand = unaryOperations[op](this.operand);
+      this.operand = this.keepInBounds(unaryOperations[op](this.operand));
     }
   }
 
   this.updateState();
-  /*
-  // Check unsigned overflow. Reduce modulo bound + 1.
-  if (this.accumulator.compare(this.bound) > 0) {
-    this.accumulator = this.accumulator.mod(this.bound.plus(1));
-  } */
 };
 
 /**

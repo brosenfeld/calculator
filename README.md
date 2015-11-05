@@ -14,4 +14,4 @@
 * Handles changes in bit length.
 * AC, C, DEL seem to be working properly.
 * Control flow also seems to be working properly.
-* For other operations, the calculator currently uses the BigInteger methods. Seemingly working properly for numbers within bounds. I need to add logic for overflow.
+* For other operations, the calculator currently uses the BigInteger methods. I added additional logic for handling signed/unsigned and different bit lengths, and it seems to be working properly.
