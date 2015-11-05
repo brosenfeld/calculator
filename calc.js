@@ -29,6 +29,7 @@ function Calc() {
     if (this.clearOperand) {
       this.operand = bigInt.zero;
       this.clearOperand = false;
+      this.hasOperand = false;
     }
 
     if (this.clearOperation) {
@@ -134,7 +135,7 @@ Calc.prototype.opEntered = function(op) {
   }
   // Clear the operand.
   else if (op == OpEnum.CLEAR) {
-    this.clearOperand = true;
+    this.operand = bigInt.zero;
   }
   // Delete the last digit entered.
   else if (op == OpEnum.DEL) {

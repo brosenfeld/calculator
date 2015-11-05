@@ -40,10 +40,10 @@ function View(calc) {
   }
 
   /**
-   * Updates the display to reflect the given value.
-   * @param {BigInteger} The value to show in the display.
+   * Updates the display to reflect the state of the calculator.
    */
-  function updateDisplay(value) {
+  function updateDisplay() {
+    var value = calc.hasOperand ? calc.operand : calc.accumulator;
     $( "#dec > .acc" ).text(value.toString(10));
     var hexString = (value < 0) ?
       getHexNegative(value, calc.bitLength) :
@@ -67,8 +67,8 @@ function View(calc) {
     $( this ).removeClass(numActive);
     $( this ).addClass(numInactive);
     calc.numberEntered($( this ).text());
-    updateDisplay(calc.operand);
-    if (enableEqualsOnNumberEntered) {
+    updateDisplay();
+    if (enableEqualsOnNumberEntered && calc.hasOperand) {
       $( '#EQUALS').each(enableOp);
       enableEqualsOnNumberEntered = false;
     }
@@ -97,24 +97,16 @@ function View(calc) {
     switch (op) {
       case OpEnum.ALL_CLEAR:
         $( '#EQUALS').each(disableOp);
-        // Fall through.
-      case OpEnum.CLEAR:
-      case OpEnum.DEL:
-        updateDisplay(calc.operand);
         break;
       case OpEnum.EQUALS:
         $( '#EQUALS').each(disableOp);
-        updateDisplay(calc.accumulator);
         break;
       default:
         if (op in binaryOperations) {
           enableEqualsOnNumberEntered = true;
-          updateDisplay(calc.accumulator);
-        } else if (op in unaryOperations) {
-          if (calc.hasOperand) updateDisplay(calc.operand);
-          else updateDisplay(calc.accumulator);
         }
     }
+    updateDisplay();
   }
 
   /**
@@ -181,8 +173,7 @@ function View(calc) {
     }
 
     calc.setIsSigned(signed);
-    // TODO: Update display;
-    updateDisplay(calc.operand);
+    updateDisplay();
   });
 
   /**
@@ -216,9 +207,7 @@ function View(calc) {
     }
 
     calc.setBitLength(mode);
-    
-    // TODO: Should show what is already being shown.
-    updateDisplay(calc.operand);
+    updateDisplay();
   });
 
   /* Set up the keypad buttons. */
@@ -294,5 +283,5 @@ function View(calc) {
   $( "#signed" ).click();
   $( "#bit64" ).click();
   $( '#EQUALS').each(disableOp);
-  updateDisplay(calc.accumulator);
+  updateDisplay();
 }
