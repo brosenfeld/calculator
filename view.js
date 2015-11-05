@@ -5,6 +5,7 @@
  */
 function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
+  var enableEqualsOnNumberEntered = false;
 
   /**
    * Displays the binary representation of a number.
@@ -66,6 +67,10 @@ function View(calc) {
     setBackgroundColor($( this ), numBackgroundColor);
     calc.numberEntered($( this ).text());
     updateDisplay(calc.operand);
+    if (enableEqualsOnNumberEntered) {
+      $( '#EQUALS').each(enableOp);
+      enableEqualsOnNumberEntered = false;
+    }
   }
 
   /**
@@ -84,14 +89,28 @@ function View(calc) {
     var op = $( this ).attr('id');
     calc.opEntered(op);
 
-    // Depending on the operation either show the operand or accumulator.
-    if (op == OpEnum.ALL_CLEAR || op == OpEnum.CLEAR || op == OpEnum.DEL) {
-      updateDisplay(calc.operand);
-    } else if (op in binaryOperations || op == OpEnum.EQUALS) {
-      updateDisplay(calc.accumulator);
-    } else if (op in unaryOperations) {
-      if (calc.hasOperand) updateDisplay(calc.operand);
-      else updateDisplay(calc.accumulator);
+    // Depending on the operation either show the operand or accumulator and
+    // potentially enable or disable the equals operaiton.
+    switch (op) {
+      case OpEnum.ALL_CLEAR:
+        $( '#EQUALS').each(disableOp);
+        // Fall through.
+      case OpEnum.CLEAR:
+      case OpEnum.DEL:
+        updateDisplay(calc.operand);
+        break;
+      case OpEnum.EQUALS:
+        $( '#EQUALS').each(disableOp);
+        updateDisplay(calc.accumulator);
+        break;
+      default:
+        if (op in binaryOperations) {
+          enableEqualsOnNumberEntered = true;
+          updateDisplay(calc.accumulator);
+        } else if (op in unaryOperations) {
+          if (calc.hasOperand) updateDisplay(calc.operand);
+          else updateDisplay(calc.accumulator);
+        }
     }
   }
 
@@ -266,5 +285,6 @@ function View(calc) {
   $( "#hex" ).click();
   $( "#signed" ).click();
   $( "#bit64" ).click();
+  $( '#EQUALS').each(disableOp);
   updateDisplay(calc.accumulator);
 }
