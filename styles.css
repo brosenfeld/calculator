@@ -109,22 +109,34 @@ body {
   text-align: center;
 }
 
-.num_enabled {
+.num_active {
+  background-color: #FFD299;
+}
+
+.num_inactive {
   background-color: #FF8F00;
+}
+
+.num_enabled {
   color: black;
 }
 
 .num_disabled {
-  background-color: #FF8F00;
   color: #E68100;
 }
 
-.op_enabled {
+.op_active {
+  background-color: gray;
+}
+
+.op_inactive {
   background-color: black;
+}
+
+.op_enabled {
   color: white;
 }
 
 .op_disabled {
-  background-color: black;
   color: #888888;
 }

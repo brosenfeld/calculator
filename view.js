@@ -56,15 +56,16 @@ function View(calc) {
    * Handles the start of a click or touch on a number button.
    */
   function numStartClickHandler() {
-    setBackgroundColor($( this ), numActiveColor);
-  }
+    $( this ).removeClass(numInactive);
+    $( this ).addClass(numActive);  }
 
   /**
    * Handles the end of a click or touch on a number button. This is where we
    * pass the value to the model and update the display.
    */
   function numEndClickHandler() {
-    setBackgroundColor($( this ), numBackgroundColor);
+    $( this ).removeClass(numActive);
+    $( this ).addClass(numInactive);
     calc.numberEntered($( this ).text());
     updateDisplay(calc.operand);
     if (enableEqualsOnNumberEntered) {
@@ -77,7 +78,8 @@ function View(calc) {
    * Handles the start of a click or touch on an operation button.
    */
   function opStartClickHandler() {
-    setBackgroundColor($( this ), opActiveColor);
+    $( this ).removeClass(opInactive);
+    $( this ).addClass(opActive);
   }
 
   /**
@@ -85,7 +87,8 @@ function View(calc) {
    * we trigger the operation on the calculator and update the display.
    */
   function opEndClickHandler() {
-    setBackgroundColor($( this ), opBackgroundColor);
+    $( this ).removeClass(opActive);
+    $( this ).addClass(opInactive);
     var op = $( this ).attr('id');
     calc.opEntered(op);
 
@@ -218,8 +221,8 @@ function View(calc) {
   });
 
   /* Set up the keypad buttons. */
-  $(" .num ").each(setupNumEvents);
-  $(" .op  ").each(setupOpEvents);
+  $(" .num_inactive ").each(setupNumEvents);
+  $(" .op_inactive  ").each(setupOpEvents);
 
   /**
    * Disables a number button.
