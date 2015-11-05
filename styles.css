@@ -109,11 +109,22 @@ body {
   text-align: center;
 }
 
-.num {
+.num_enabled {
   background-color: #FF8F00;
+  color: black;
 }
 
-.op {
+.num_disabled {
+  background-color: #FF8F00;
+  color: #E68100;
+}
+
+.op_enabled {
   background-color: black;
   color: white;
+}
+
+.op_disabled {
+  background-color: black;
+  color: #888888;
 }

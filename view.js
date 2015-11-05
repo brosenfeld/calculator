@@ -146,7 +146,8 @@ function View(calc) {
    * Enable an operation button.
    */
   function enableOp() {
-     $( this ).css("color", enabledOpColor);
+     $( this ).removeClass(opDisabled);
+     $( this ).addClass(opEnabled);
      $( this ).each(setupOpEvents);
   }
 
@@ -154,7 +155,8 @@ function View(calc) {
    * Disables an operation button.
    */
   function disableOp() {
-    $( this ).css("color", disabledOpColor);
+    $( this ).removeClass(opEnabled);
+    $( this ).addClass(opDisabled);
     $( this ).off("mouseup").off("mousedown");
     $( this ).off("touchstart").off("touchend");
   }
@@ -223,7 +225,8 @@ function View(calc) {
    * Disables a number button.
    */
   function disableNumber() {
-    $( this ).css("color", numDisabledColor);
+    $( this ).removeClass(numEnabled);
+    $( this ).addClass(numDisabled);
     $( this ).off("mouseup").off("mousedown");
     $( this ).off("touchstart").off("touchend");
   }
@@ -232,8 +235,9 @@ function View(calc) {
    * Enables a number button.
    */
   function enableNumber() {
-      $( this ).css("color", "black");
-      $( this ).each(setupNumEvents);
+    $( this ).removeClass(numDisabled);
+    $( this ).addClass(numEnabled);
+    $( this ).each(setupNumEvents);
   }
 
   /**

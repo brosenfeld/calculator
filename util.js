@@ -6,6 +6,14 @@ var numDisabledColor = "#E68100";
 var opBackgroundColor = "black"; // Keep synced with CSS.
 var opActiveColor = "gray";
 
+// Num classes -- Keep synced with css.
+var numEnabled = "num_enabled";
+var numDisabled = "num_disabled";
+
+// Op Classes -- Keep synced with css.
+var opEnabled = "op_enabled";
+var opDisabled = "op_disabled";
+
 function setBackgroundColor(button, color) {
   button.css("background-color", color);
 }
