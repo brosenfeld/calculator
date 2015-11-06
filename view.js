@@ -104,6 +104,9 @@ function View(calc) {
       default:
         if (op in binaryOperations) {
           enableEqualsOnNumberEntered = true;
+        } else if (op in unaryOperations) {
+          // Check if the operation cleared the last binary operation.
+          if (calc.operation === null) enableEqualsOnNumberEntered = false;
         }
     }
     updateDisplay();

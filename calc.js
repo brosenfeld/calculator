@@ -162,7 +162,6 @@ Calc.prototype.opEntered = function(op) {
     }
     this.clearOperand = true;
     this.clearOperation = true;
-    this.hasOperand = false;
   }
   else if (op == OpEnum.PLUS_MINUS) {
     if (this.hasOperand) {
@@ -195,9 +194,13 @@ Calc.prototype.opEntered = function(op) {
       var argument = this.hasOperand ? this.operand : this.accumulator;
       this.accumulator = this.keepInBounds(unaryOperations[op](argument));
       this.clearOperand = true;
-      this.hasOperand = false;
+    } else if (this.hasOperand) {
+        this.operand = this.keepInBounds(unaryOperations[op](this.operand));
     } else {
-      this.operand = this.keepInBounds(unaryOperations[op](this.operand));
+      // Replace the binary operation.
+      this.accumulator =
+        this.keepInBounds(unaryOperations[op](this.accumulator));
+      this.clearOperation = true;
     }
   }
 
