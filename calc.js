@@ -127,8 +127,6 @@ Calc.prototype.numberEntered = function(button) {
  * Called when the user presses a button corresponding to an operation.
  * @param {OpEnum} The operation.
  *
- * TODO: Handle other operations.
- *
  * An operation requires some combination of the following: clearing the
  * accumulator, clearing the operand, doing an operation, and setting a
  * new operation.

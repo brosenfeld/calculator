@@ -10,12 +10,9 @@ function View(calc) {
   /**
    * Displays the binary representation of a number.
    * @param {string} A string representation of a hexidecimal number.
-   *
-   * TODO: Check that the length of the given string is less than the
-   * bitLength / 4.
    */
   function displayBin(hexString) {
-    var length = hexString.length;
+    var length = Math.min(hexString.length, calc.bitLength / 4);
     // Start from the least significant digit of the hex string and set the
     // bits.
     for (i = 0; i < length; i++) {
