@@ -156,7 +156,7 @@ Calc.prototype.opEntered = function(op) {
     if (this.operation in binaryOperations) {
       var binop = binaryOperations[this.operation];
       this.accumulator =
-        this.keepInBounds(binop(this.accumulator, this.operand));
+        this.keepInBounds(binop(this.accumulator, this.operand, this.bitLength));
     }
     this.clearOperand = true;
     this.clearOperation = true;
@@ -180,7 +180,7 @@ Calc.prototype.opEntered = function(op) {
       // accumulator and operand.
       this.accumulator = (this.operation === null) ?
         this.operand :
-        this.keepInBounds(binop(this.accumulator, this.operand));
+        this.keepInBounds(binop(this.accumulator, this.operand, this.bitLength));
     }
 
     this.operation = op;
