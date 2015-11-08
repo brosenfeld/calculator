@@ -35,3 +35,11 @@ binaryOperations[OpEnum.XOR] = function(accumulator, operand) {
 binaryOperations[OpEnum.MOD] = function(accumulator, operand) {
   return accumulator.mod(operand);
 };
+
+binaryOperations[OpEnum.LEFT_SHIFT] = function(accumulator, operand) {
+  return accumulator.shiftLeft(operand);
+};
+
+binaryOperations[OpEnum.RIGHT_SHIFT] = function(accumulator, operand) {
+  return accumulator.shiftRight(operand);
+};
