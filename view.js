@@ -6,6 +6,7 @@
 function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
   var enableEqualsOnNumberEntered = false;
+  var isDeleteEnabled = false;
 
   /**
    * Displays the binary representation of a number.
@@ -65,9 +66,15 @@ function View(calc) {
     $( this ).addClass(numInactive);
     calc.numberEntered($( this ).text());
     updateDisplay();
-    if (enableEqualsOnNumberEntered && calc.hasOperand) {
-      $( '#EQUALS').each(enableOp);
-      enableEqualsOnNumberEntered = false;
+    if (calc.hasOperand) {
+      if (!isDeleteEnabled) {
+        isDeleteEnabled = true;
+        $( "#DEL" ).each(enableOp);
+      }
+      if (enableEqualsOnNumberEntered) {
+        $( "#EQUALS").each(enableOp);
+        enableEqualsOnNumberEntered = false;
+      }
     }
   }
 
@@ -93,10 +100,10 @@ function View(calc) {
     // potentially enable or disable the equals operaiton.
     switch (op) {
       case OpEnum.ALL_CLEAR:
-        $( '#EQUALS').each(disableOp);
+        $( "#EQUALS").each(disableOp);
         break;
       case OpEnum.EQUALS:
-        $( '#EQUALS').each(disableOp);
+        $( "#EQUALS").each(disableOp);
         break;
       default:
         if (op in binaryOperations) {
@@ -106,6 +113,13 @@ function View(calc) {
           if (calc.operation === null) enableEqualsOnNumberEntered = false;
         }
     }
+
+    // Check if delete should be disabled.
+    if (isDeleteEnabled && !calc.hasOperand) {
+      isDeleteEnabled = false;
+      $( "#DEL" ).each(disableOp);
+    }
+
     updateDisplay();
   }
 
@@ -282,7 +296,6 @@ function View(calc) {
    * Handle keyboard inputs by redirecting them to the mouse events.
    */
   $( document ).keydown(function(e) {
-    console.log(e.which);
     if (e.shiftKey && e.which in shiftKeyboard) {
       this.shiftWasActive = true;
       shiftKeyboard[e.which].trigger("mousedown");

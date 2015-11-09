@@ -6,7 +6,6 @@
 * Changes in bit length are shown in the binary representation.
 * Can use keyboard for input.
 * TODO: May want to highlight the active operation.
-* TODO: Should delete only be active when there is an operand?
 
 ## Display
 * Entering positive or negative numbers properly shows decimal, binary, and hex and does bounds checking.
