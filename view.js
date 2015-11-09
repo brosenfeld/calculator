@@ -6,7 +6,7 @@
 function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
   var enableEqualsOnNumberEntered = false;
-  var isDeleteEnabled = false;
+  var areOperandClearsEnabled = false;
 
   /**
    * Displays the binary representation of a number.
@@ -67,10 +67,13 @@ function View(calc) {
     calc.numberEntered($( this ).text());
     updateDisplay();
     if (calc.hasOperand) {
-      if (!isDeleteEnabled) {
-        isDeleteEnabled = true;
+      // Check if delete and clear should be enabled.
+      if (!areOperandClearsEnabled) {
+        areOperandClearsEnabled = true;
+        $( "#CLEAR" ).each(enableOp);
         $( "#DEL" ).each(enableOp);
       }
+      // Check if equals should be enabled.
       if (enableEqualsOnNumberEntered) {
         $( "#EQUALS").each(enableOp);
         enableEqualsOnNumberEntered = false;
@@ -114,9 +117,10 @@ function View(calc) {
         }
     }
 
-    // Check if delete should be disabled.
-    if (isDeleteEnabled && !calc.hasOperand) {
-      isDeleteEnabled = false;
+    // Check if delete and clear should be disabled.
+    if (areOperandClearsEnabled && !calc.hasOperand) {
+      areOperandClearsEnabled = false;
+      $( "#CLEAR" ).each(disableOp);
       $( "#DEL" ).each(disableOp);
     }
 
