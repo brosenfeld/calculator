@@ -53,3 +53,65 @@ var hexToBin = {
 function hexDigitToPaddedBin(digit) {
   return hexToBin[digit];
 }
+
+/* KEYBOARD AND BUTTON UTILITIES */
+var keyboard = {
+  // Numbers.
+  48 : $( "#zero" ),
+  49 : $( "#one" ),
+  50 : $( "#two" ),
+  51 : $( "#three" ),
+  52 : $( "#four" ),
+  53 : $( "#five" ),
+  54 : $( "#six" ),
+  55 : $( "#seven" ),
+  56 : $( "#eight" ),
+  57 : $( "#nine" ),
+  
+  // Letters.
+  65 : $( "#a" ),
+  66 : $( "#b" ),
+  67 : $( "#c" ),
+  68 : $( "#d" ),
+  69 : $( "#e" ),
+  70 : $( "#f" ),
+  
+  // Keypad.
+  96 : $( "#zero" ),
+  97 : $( "#one" ),
+  98 : $( "#two" ),
+  99 : $( "#three" ),
+  100 : $( "#four" ),
+  101 : $( "#five" ),
+  102 : $( "#six" ),
+  103 : $( "#seven" ),
+  104 : $( "#eight" ),
+  105 : $( "#nine" ),
+
+  // Operations.
+  8 : $( "#DEL" ),
+  13 : $( "#EQUALS" ),       // Enter
+  27 : $( "#ALL_CLEAR" ),    // ESC
+  88: $( "#TIMES" ),         // x
+  106: $( "#TIMES" ),        // keypad multiply
+  107: $( "#PLUS" ),         // keypad add
+  109: $( "#MINUS" ),        // keypad subtraction
+  111: $( "#DIVIDE" ),       // keypad divide
+  187: $( "#EQUALS" ),
+  188: $( "#LEFT_SHIFT" ),
+  189: $( "#MINUS" ),
+  190: $( "#RIGHT_SHIFT" ),
+  191: $( "#DIVIDE" ),       // /
+  220: $( "#OR" ),           // |
+
+};
+
+var shiftKeyboard = {
+  49 : $( "#NOT" ),          // !
+  53 : $( "#MOD" ),          // %
+  54 : $( "#XOR" ),          // ^
+  55 : $( "#AND" ),          // &
+  56 : $( "#TIMES" ),        // *
+  187: $( "#PLUS" ),
+  192: $( "#PLUS_MINUS" ),      // ~
+};
