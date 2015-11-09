@@ -107,6 +107,7 @@ var keyboard = {
 };
 
 var shiftKeyboard = {
+  48 : $( "#double_zero" ),  // 0
   49 : $( "#NOT" ),          // !
   53 : $( "#MOD" ),          // %
   54 : $( "#XOR" ),          // ^
@@ -114,6 +115,8 @@ var shiftKeyboard = {
   56 : $( "#TIMES" ),        // *
   65 : $( "#ALL_CLEAR" ),    // a
   67 : $( "#CLEAR" ),        // c
+  70 : $( "#double_f" ),     // f
+  96 : $( "#double_zero" ),  // 0 keypad
   187: $( "#PLUS" ),
   190: $( "#LOGICAL_RIGHT_SHIFT" ),
   192: $( "#PLUS_MINUS" ),   // ~

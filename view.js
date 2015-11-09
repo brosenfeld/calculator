@@ -279,7 +279,7 @@ function View(calc) {
   });
 
   /**
-   * Handle keyboard inputs..
+   * Handle keyboard inputs by redirecting them to the mouse events.
    */
   $( document ).keydown(function(e) {
     console.log(e.which);
@@ -292,12 +292,10 @@ function View(calc) {
   });
 
   $( document ).keyup(function(e) {
-    // TODO: Fix mishandling of when shift key comes off before key is released.
     if ((e.shiftKey || this.shiftWasActive) && e.which in shiftKeyboard) {
       shiftKeyboard[e.which].trigger("mouseup");
       this.shiftWasActive = false;
     } else if (e.which in keyboard) {
-      console.log("up " + e.which);
       keyboard[e.which].trigger("mouseup");
     }
   });
