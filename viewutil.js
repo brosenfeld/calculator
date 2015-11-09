@@ -112,6 +112,9 @@ var shiftKeyboard = {
   54 : $( "#XOR" ),          // ^
   55 : $( "#AND" ),          // &
   56 : $( "#TIMES" ),        // *
+  65 : $( "#ALL_CLEAR" ),    // a
+  67 : $( "#CLEAR" ),        // c
   187: $( "#PLUS" ),
-  192: $( "#PLUS_MINUS" ),      // ~
+  190: $( "#LOGICAL_RIGHT_SHIFT" ),
+  192: $( "#PLUS_MINUS" ),   // ~
 };

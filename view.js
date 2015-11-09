@@ -284,6 +284,7 @@ function View(calc) {
   $( document ).keydown(function(e) {
     console.log(e.which);
     if (e.shiftKey && e.which in shiftKeyboard) {
+      this.shiftWasActive = true;
       shiftKeyboard[e.which].trigger("mousedown");
     } else if (e.which in keyboard) {
       keyboard[e.which].trigger("mousedown");
@@ -292,8 +293,9 @@ function View(calc) {
 
   $( document ).keyup(function(e) {
     // TODO: Fix mishandling of when shift key comes off before key is released.
-    if (e.shiftKey && e.which in shiftKeyboard) {
+    if ((e.shiftKey || this.shiftWasActive) && e.which in shiftKeyboard) {
       shiftKeyboard[e.which].trigger("mouseup");
+      this.shiftWasActive = false;
     } else if (e.which in keyboard) {
       console.log("up " + e.which);
       keyboard[e.which].trigger("mouseup");

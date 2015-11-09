@@ -4,6 +4,7 @@
 * Appropriate numerical buttons are made available for the base.
 * Changes between signed and unsigned are reflected in the available operations.
 * Changes in bit length are shown in the binary representation.
+* Can use keyboard for input.
 * TODO: May want to highlight the active operation.
 * TODO: Should delete only be active when there is an operand?
 
