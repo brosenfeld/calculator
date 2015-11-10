@@ -7,6 +7,7 @@ function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
   var enableEqualsOnNumberEntered = false;
   var areOperandClearsEnabled = false;
+  var lastOp = null;
 
   /**
    * Displays the binary representation of a number.
@@ -97,7 +98,11 @@ function View(calc) {
     $( this ).removeClass(opActive);
     $( this ).addClass(opInactive);
     var op = $( this ).attr('id');
-    calc.opEntered(op);
+    var recognized = calc.opEntered(op);
+    if (recognized && lastOp !== null) {
+      lastOp.css("color", "white"); // Keep synced with CSS.
+      lastOp = null;
+    }
 
     // Depending on the operation either show the operand or accumulator and
     // potentially enable or disable the equals operaiton.
@@ -110,6 +115,8 @@ function View(calc) {
         break;
       default:
         if (op in binaryOperations) {
+          lastOp = $( this );
+          lastOp.css("color", lastOpColor);
           enableEqualsOnNumberEntered = true;
         } else if (op in unaryOperations) {
           // Check if the operation cleared the last binary operation.

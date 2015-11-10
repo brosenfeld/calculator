@@ -1,3 +1,5 @@
+var lastOpColor = "#FF8F00";
+
 // Num classes -- Keep synced with css.
 var numActive = "num_active";
 var numInactive = "num_inactive";
