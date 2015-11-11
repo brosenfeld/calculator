@@ -54,7 +54,8 @@ function View(calc) {
   /**
    * Handles the start of a click or touch on a number button.
    */
-  function numStartClickHandler() {
+  function numStartClickHandler(event) {
+    event.preventDefault();
     $( this ).removeClass(numInactive);
     $( this ).addClass(numActive);  }
 
@@ -62,7 +63,8 @@ function View(calc) {
    * Handles the end of a click or touch on a number button. This is where we
    * pass the value to the model and update the display.
    */
-  function numEndClickHandler() {
+  function numEndClickHandler(event) {
+    event.preventDefault();
     $( this ).removeClass(numActive);
     $( this ).addClass(numInactive);
     calc.numberEntered($( this ).text());
@@ -85,7 +87,8 @@ function View(calc) {
   /**
    * Handles the start of a click or touch on an operation button.
    */
-  function opStartClickHandler() {
+  function opStartClickHandler(event) {
+    event.preventDefault();
     $( this ).removeClass(opInactive);
     $( this ).addClass(opActive);
   }
@@ -94,7 +97,8 @@ function View(calc) {
    * Handles the end of a click or touch on an operation button. This is where
    * we trigger the operation on the calculator and update the display.
    */
-  function opEndClickHandler() {
+  function opEndClickHandler(event) {
+    event.preventDefault();
     $( this ).removeClass(opActive);
     $( this ).addClass(opInactive);
     var op = $( this ).attr('id');
