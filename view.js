@@ -5,7 +5,6 @@
  */
 function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
-  var enableEqualsOnNumberEntered = false;
   var areOperandClearsEnabled = false;
   var lastOp = null;
 
@@ -111,18 +110,11 @@ function View(calc) {
     $( this ).addClass(numInactive);
     calc.numberEntered($( this ).text());
     updateDisplay();
-    if (calc.hasOperand) {
-      // Check if delete and clear should be enabled.
-      if (!areOperandClearsEnabled) {
-        areOperandClearsEnabled = true;
-        $( "#CLEAR" ).each(enableOp);
-        $( "#DEL" ).each(enableOp);
-      }
-      // Check if equals should be enabled.
-      if (enableEqualsOnNumberEntered) {
-        $( "#EQUALS").each(enableOp);
-        enableEqualsOnNumberEntered = false;
-      }
+    // Check if delete and clear should be enabled.
+    if (calc.hasOperand && !areOperandClearsEnabled) {
+      areOperandClearsEnabled = true;
+      $( "#CLEAR" ).each(enableOp);
+      $( "#DEL" ).each(enableOp);
     }
   }
 
@@ -158,7 +150,6 @@ function View(calc) {
     switch (op) {
       case OpEnum.ALL_CLEAR:
         $( "#EQUALS").each(disableOp);
-        enableEqualsOnNumberEntered = false;
         break;
       case OpEnum.EQUALS:
         $( "#EQUALS").each(disableOp);
@@ -167,10 +158,7 @@ function View(calc) {
         if (op in binaryOperations) {
           lastOp = $( this );
           lastOp.css("color", lastOpColor);
-          enableEqualsOnNumberEntered = true;
-        } else if (op in unaryOperations) {
-          // Check if the operation cleared the last binary operation.
-          if (calc.operation === null) enableEqualsOnNumberEntered = false;
+          $( "#EQUALS").each(enableOp);
         }
     }
 
