@@ -52,3 +52,12 @@ binaryOperations[OpEnum.LOGICAL_RIGHT_SHIFT] = function(accumulator, operand,
   var mask = bigInt(2).pow(length - operand).minus(1);
   return accumulator.shiftRight(operand).and(mask);
 };
+
+binaryOperations[OpEnum.ROTATE_LEFT] = function(accumulator, operand, length) {
+  var left = operand.mod(length).plus(length).mod(length).valueOf();
+  var right = length - left;
+  var highOrder = accumulator.shiftLeft(left);
+  var lowOrder =
+    binaryOperations[OpEnum.LOGICAL_RIGHT_SHIFT](accumulator, right, length);
+  return highOrder.or(lowOrder);
+};

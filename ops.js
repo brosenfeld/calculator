@@ -17,4 +17,5 @@ var OpEnum = {
   TIMES: "TIMES",
   DIVIDE: "DIVIDE",
   EQUALS: "EQUALS",
+  ROTATE_LEFT: "ROTATE_LEFT",
 };

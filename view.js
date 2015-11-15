@@ -93,6 +93,16 @@ function View(calc) {
   }
 
   /**
+   * Clear the last operation if it existed.
+   */
+  function clearLastOp() {
+    if (lastOp !== null) {
+      lastOp.css("color", "white"); // Keep synced with CSS.
+      lastOp = null;
+    }
+  }
+
+  /**
    * Handles the start of a click or touch on a number button.
    */
   function numStartClickHandler(event) {
@@ -136,26 +146,19 @@ function View(calc) {
     $( this ).removeClass(opActive);
     $( this ).addClass(opInactive);
     var op = $( this ).attr('id');
-    var recognized = calc.opEntered(op);
-    if (recognized &&
-        lastOp !== null &&
-        op != OpEnum.CLEAR &&
-        op != OpEnum.DEL) {
-      lastOp.css("color", "white"); // Keep synced with CSS.
-      lastOp = null;
-    }
+    calc.opEntered(op);
 
     // Depending on the operation either show the operand or accumulator and
     // potentially enable or disable the equals operaiton.
     switch (op) {
       case OpEnum.ALL_CLEAR:
-        $( "#EQUALS").each(disableOp);
-        break;
       case OpEnum.EQUALS:
         $( "#EQUALS").each(disableOp);
+        clearLastOp();
         break;
       default:
         if (op in binaryOperations) {
+          clearLastOp();
           lastOp = $( this );
           lastOp.css("color", lastOpColor);
           $( "#EQUALS").each(enableOp);

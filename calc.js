@@ -126,7 +126,6 @@ Calc.prototype.numberEntered = function(button) {
 /**
  * Called when the user presses a button corresponding to an operation.
  * @param {OpEnum} The operation.
- * @return {boolean} True if the operation was processed.
  *
  * An operation requires some combination of the following: clearing the
  * accumulator, clearing the operand, doing an operation, and setting a
@@ -201,12 +200,9 @@ Calc.prototype.opEntered = function(op) {
         this.keepInBounds(unaryOperations[op](this.accumulator));
       this.clearOperation = true;
     }
-  } else {
-    return false;
   }
 
   this.updateState();
-  return true;
 };
 
 /**
