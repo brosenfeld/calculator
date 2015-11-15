@@ -158,6 +158,7 @@ function View(calc) {
     switch (op) {
       case OpEnum.ALL_CLEAR:
         $( "#EQUALS").each(disableOp);
+        enableEqualsOnNumberEntered = false;
         break;
       case OpEnum.EQUALS:
         $( "#EQUALS").each(disableOp);
