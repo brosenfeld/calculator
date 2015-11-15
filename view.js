@@ -11,7 +11,7 @@ function View(calc) {
 
   /**
    * Displays the binary representation of a number.
-   * @param {string} A string representation of a hexidecimal number.
+   * @param {String} A string representation of a hexidecimal number.
    */
   function displayBin(hexString) {
     var length = Math.min(hexString.length, calc.bitLength / 4);
@@ -31,7 +31,7 @@ function View(calc) {
   /**
    * Given a negaive BigInteger returns the appropriate hex representation.
    * @param {number} A negative BigInteger
-   * @param {length} An int representing the max bit length for a number.
+   * @param {number} An int representing the max bit length for a number.
    * @return {String} A hex string representing the number.
    */
   function getHexNegative(number, length) {
@@ -39,16 +39,51 @@ function View(calc) {
   }
 
   /**
-   * Updates the display to reflect the state of the calculator.
+   * Display a new number.
+   * @param {BigInteger} A value to display
+   * @param {String} The class of the fields to display the number in.
+   * @param {boolean} Whether or not to update the bit display.
    */
-  function updateDisplay() {
-    var value = calc.hasOperand ? calc.operand : calc.accumulator;
-    $( "#dec > .acc" ).text(value.toString(10));
+  function displayNumber(value, type, shouldDisplayBin) {
+    $( "#dec > .values > " + type).text(value.toString(10));
     var hexString = (value < 0) ?
       getHexNegative(value, calc.bitLength) :
       value.toString(16).toUpperCase();
-    $( "#hex > .acc" ).text(hexString);
-    displayBin(hexString);
+    $( "#hex > .values > " + type).text(hexString);
+    if (shouldDisplayBin) displayBin(hexString);
+  }
+
+  /**
+   * @param {String} The class of the fields to clear the number from.
+   */
+  function clearFields(type) {
+    $( "#dec > .values > " + type).text("");
+    $( "#hex > .valsues > " + type).text("");
+  }
+
+  /**
+   * Updates the display to reflect the state of the calculator.
+   */
+  function updateDisplay() {
+    // No operand: clear operand, display accumulator, show accumulator bits.
+    if (!calc.hasOperand) {
+      clearFields(operandClass);
+      displayNumber(calc.accumulator, accumulatorClass, true);
+    }
+
+    // Operand replacing accumulator: clear accumulator, display opearnd,
+    // show operand bits.
+    else if (calc.operation === null) {
+      clearFields(accumulatorClass);
+      displayNumber(calc.operand, operandClass, true);
+    }
+
+    // Operation in progress: display accumulator, display operand, and show
+    // operand bits.
+    else {
+      displayNumber(calc.accumulator, accumulatorClass, false);
+      displayNumber(calc.operand, operandClass, true);
+    }
   }
 
   /**
