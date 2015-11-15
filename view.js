@@ -58,7 +58,7 @@ function View(calc) {
    */
   function clearFields(type) {
     $( "#dec > .values > " + type).text("");
-    $( "#hex > .valsues > " + type).text("");
+    $( "#hex > .values > " + type).text("");
   }
 
   /**
@@ -69,6 +69,8 @@ function View(calc) {
     if (!calc.hasOperand) {
       clearFields(operandClass);
       displayNumber(calc.accumulator, accumulatorClass, true);
+      $( ".acc" ).addClass("only");
+      $( ".operator" ).text("");
     }
 
     // Operand replacing accumulator: clear accumulator, display opearnd,
@@ -76,6 +78,8 @@ function View(calc) {
     else if (calc.operation === null) {
       clearFields(accumulatorClass);
       displayNumber(calc.operand, operandClass, true);
+      $( ".operand" ).addClass("only");
+      $( ".operator" ).text("");
     }
 
     // Operation in progress: display accumulator, display operand, and show
@@ -83,6 +87,9 @@ function View(calc) {
     else {
       displayNumber(calc.accumulator, accumulatorClass, false);
       displayNumber(calc.operand, operandClass, true);
+      $( ".operator" ).text(lastOp.text());
+      $( ".operand" ).removeClass("only");
+      $( ".acc" ).removeClass("only");
     }
   }
 
@@ -138,7 +145,10 @@ function View(calc) {
     $( this ).addClass(opInactive);
     var op = $( this ).attr('id');
     var recognized = calc.opEntered(op);
-    if (recognized && lastOp !== null) {
+    if (recognized &&
+        lastOp !== null &&
+        op != OpEnum.CLEAR &&
+        op != OpEnum.DEL) {
       lastOp.css("color", "white"); // Keep synced with CSS.
       lastOp = null;
     }

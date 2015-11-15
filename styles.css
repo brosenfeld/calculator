@@ -55,15 +55,29 @@ body {
 .label {
   flex: 0 0 auto;
   font-weight: bold;
-  font-size: 18px;
-  margin: auto 10px;
+  font-size: 16px;
+  margin: auto 6px;
 }
 
 .values {
   flex: 1 1 0;
-  font-size: 14px;
-  margin: auto 10px;
+  font-size: 12.5px;
+  margin: auto 6px;
   text-align: right;
+}
+
+.only {
+  font-size: 14px;
+}
+
+.operand {
+  float: right;
+}
+
+.operator {
+  float: right;
+  font-weight: bold;
+  margin-right: 6px;
 }
 
 #bin {
