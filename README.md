@@ -5,7 +5,7 @@
 * Changes between signed and unsigned are reflected in the available operations.
 * Changes in bit length are shown in the binary representation.
 * Can use keyboard for input.
-* TODO: Prevent changes to mode when in a pending operation.
+* Show accumulator, operand, and the active operator.
 
 ## Display
 * Entering positive or negative numbers properly shows decimal, binary, and hex and does bounds checking.
