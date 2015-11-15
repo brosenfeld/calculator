@@ -10,7 +10,6 @@ function Calc() {
   this.clearAccumulator = true;
   this.clearOperand = true;
   this.clearOperation = true;
-  this.hasOperand = false;
 
   // The max (and min) value an operand or the accumulator can take.
   this.setBounds = function() {
@@ -21,15 +20,16 @@ function Calc() {
 
   // Updates the state of the calculator.
   this.updateState = function() {
-    if (this.clearAccumulator) {
-      this.accumulator = bigInt.zero;
-      this.clearAccumulator = false;
-    }
-
     if (this.clearOperand) {
       this.operand = bigInt.zero;
       this.clearOperand = false;
-      this.hasOperand = false;
+      // If we're clearing the accumulator, we need a operand.
+      this.hasOperand = this.clearAccumulator;
+    }
+
+    if (this.clearAccumulator) {
+      this.accumulator = bigInt.zero;
+      this.clearAccumulator = false;
     }
 
     if (this.clearOperation) {
@@ -126,6 +126,7 @@ Calc.prototype.numberEntered = function(button) {
 /**
  * Called when the user presses a button corresponding to an operation.
  * @param {OpEnum} The operation.
+ * @return {boolean} True if the operation was processed.
  *
  * An operation requires some combination of the following: clearing the
  * accumulator, clearing the operand, doing an operation, and setting a
