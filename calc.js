@@ -185,7 +185,7 @@ Calc.prototype.opEntered = function(op) {
     }
 
     this.operation = op;
-    this.clearOperand = true;
+    this.operand = bigInt.zero;
   }
   // Handle unary operations.
   else if (op in unaryOperations) {
