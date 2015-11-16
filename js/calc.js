@@ -23,8 +23,7 @@ function Calc() {
     if (this.clearOperand) {
       this.operand = bigInt.zero;
       this.clearOperand = false;
-      // If we're clearing the accumulator, we need a operand.
-      this.hasOperand = this.clearAccumulator;
+      this.hasOperand = false;
     }
 
     if (this.clearAccumulator) {

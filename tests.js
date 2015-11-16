@@ -14,7 +14,7 @@ function enterNumbers(calc, numbers) {
 
 QUnit.test("Initial conditions", function(assert) {
   var calc = new Calc();
-  assert.ok(calc.hasOperand, "Calc has operand");
+  assert.ok(!calc.hasOperand, "Calc does not have operand");
   assert.equal(calc.operand, bigInt.zero, "Operand is zero");
   assert.equal(calc.accumulator, bigInt.zero, "Accumulator is zero");
 });
@@ -75,33 +75,99 @@ QUnit.test("Mixing digits and bits and changing base", function(assert) {
   assert.equal(calc.operand.valueOf(), 242, "Passed"); 
 });
 
-// Hitting unsigned limit.
 QUnit.test("Hitting unsigned limit", function(assert) {
   var calc = setup(10, false, 8, false);
   enterNumbers(calc, ["2", "5", "6"]); // Shouldn't be able to put the 6 in.
   assert.equal(calc.operand.valueOf(), 25, "Passed"); 
 });
 
-// Bits becoming negative number.
 QUnit.test("Above signed upper bound becomes negative", function(assert) {
   var calc = setup(16, true, 8, true);
   enterNumbers(calc, ["F", "F"]);
   assert.equal(calc.operand.valueOf(), -1, "Passed");
 });
 
-// Hitting unsigned limit.
 QUnit.test("Hitting signed limits", function(assert) {
   var calc = setup(10, false, 8, true);
   enterNumbers(calc, ["1", "2", "9"]); // Shouldn't be able to put the 0 in.
   assert.equal(calc.operand.valueOf(), 12, "Passed upper limit"); 
 
-  var calc = setup(10, false, 8, true);
+  calc = setup(10, false, 8, true);
   calc.operand = bigInt(-1);
   enterNumbers(calc, ["2", "9"]); // Shouldn't be able to put the 0 in.
   assert.equal(calc.operand.valueOf(), -12, "Passed lower limit"); 
 });
 
 QUnit.module("Entering operations");
+
+QUnit.test("All Clear", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.operand = bigInt(10);
+  calc.hasOperand = true;
+  calc.accumulator = bigInt(5);
+  calc.operation = OpEnum.PLUS;
+  calc.opEntered(OpEnum.ALL_CLEAR);
+  assert.ok(!calc.hasOperand, "Calc does not have operand");
+  assert.equal(calc.operand, bigInt.zero, "Operand is zero");
+  assert.equal(calc.accumulator, bigInt.zero, "Accumulator is zero");
+  assert.deepEqual(calc.operation, null, "No operation.");
+});
+
+QUnit.test("Clear", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.operand = bigInt(10);
+  calc.hasOperand = true;
+  calc.accumulator = bigInt(5);
+  calc.operation = OpEnum.PLUS;
+  calc.opEntered(OpEnum.CLEAR);
+  assert.ok(calc.hasOperand, "Calc has operand");
+  assert.equal(calc.operand, bigInt.zero, "Operand is zero");
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+  assert.deepEqual(calc.operation, OpEnum.PLUS, "Operation unchanged.");
+});
+
+QUnit.test("Delete", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.operand = bigInt(10);
+  calc.hasOperand = true;
+  calc.accumulator = bigInt(5);
+  calc.operation = OpEnum.PLUS;
+  calc.opEntered(OpEnum.DEL);
+  assert.ok(calc.hasOperand, "Calc has operand");
+  assert.equal(calc.operand.valueOf(), 1, "Digit deleted");
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+  assert.equal(calc.operation, OpEnum.PLUS, "Operation unchanged.");
+});
+
+QUnit.test("Delete on negative bits", function(assert) {
+  var calc = setup(16, true, 8, true);
+  calc.operand = bigInt(-1);
+  calc.opEntered(OpEnum.DEL);
+  assert.equal(calc.operand.valueOf(), 15, "Now a positive number");
+});
+
+QUnit.test("Equals with no operation", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.accumulator = bigInt(5);
+  calc.opEntered(OpEnum.EQUALS);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+});
+
+QUnit.test("Equals", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.operand = bigInt(10);
+  calc.accumulator = bigInt(5);
+  calc.operation = OpEnum.PLUS;
+  calc.opEntered(OpEnum.EQUALS);
+  assert.equal(calc.accumulator.valueOf(), 15, "Accumulator is updated");
+  assert.ok(!calc.hasOperand, "Calc does not have operand");
+  assert.equal(calc.operand, bigInt.zero, "Operand is zero");
+  assert.deepEqual(calc.operation, null, "Operation is cleared");
+});
+
+// Test plus minus.
+// Test plus minus doesn't do anything in unsigned mode.
+
 QUnit.module("Binary operations");
 QUnit.module("Unary operations");
 QUnit.module("Changing modes");

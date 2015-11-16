@@ -64,8 +64,18 @@ function View(calc) {
    * Updates the display to reflect the state of the calculator.
    */
   function updateDisplay() {
+    // Operation in progress: display accumulator, display operand, and show
+    // operand bits.
+    if (calc.operation !== null) {
+      displayNumber(calc.accumulator, accumulatorClass, false);
+      displayNumber(calc.operand, operandClass, true);
+      $( ".operator" ).text(lastOp.text());
+      $( ".operand" ).removeClass("only");
+      $( ".acc" ).removeClass("only");
+    }
+
     // No operand: clear operand, display accumulator, show accumulator bits.
-    if (!calc.hasOperand) {
+    else if (!calc.hasOperand) {
       clearFields(operandClass);
       displayNumber(calc.accumulator, accumulatorClass, true);
       $( ".acc" ).addClass("only");
@@ -74,21 +84,11 @@ function View(calc) {
 
     // Operand replacing accumulator: clear accumulator, display opearnd,
     // show operand bits.
-    else if (calc.operation === null) {
+    else {
       clearFields(accumulatorClass);
       displayNumber(calc.operand, operandClass, true);
       $( ".operand" ).addClass("only");
       $( ".operator" ).text("");
-    }
-
-    // Operation in progress: display accumulator, display operand, and show
-    // operand bits.
-    else {
-      displayNumber(calc.accumulator, accumulatorClass, false);
-      displayNumber(calc.operand, operandClass, true);
-      $( ".operator" ).text(lastOp.text());
-      $( ".operand" ).removeClass("only");
-      $( ".acc" ).removeClass("only");
     }
   }
 
