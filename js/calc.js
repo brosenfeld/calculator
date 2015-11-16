@@ -161,7 +161,7 @@ Calc.prototype.opEntered = function(op) {
     this.clearOperand = true;
     this.clearOperation = true;
   }
-  else if (op == OpEnum.PLUS_MINUS) {
+  else if (op == OpEnum.PLUS_MINUS && this.isSigned) {
     if (this.hasOperand) {
       this.operand = this.operand.negate();
     } else {

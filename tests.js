@@ -165,8 +165,37 @@ QUnit.test("Equals", function(assert) {
   assert.deepEqual(calc.operation, null, "Operation is cleared");
 });
 
-// Test plus minus.
-// Test plus minus doesn't do anything in unsigned mode.
+QUnit.test("Plus Minus on Operand", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.hasOperand = true;
+  calc.operand = bigInt(10);
+  calc.accumulator = bigInt(5);
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+  assert.equal(calc.operand.valueOf(), -10, "Operand is negated");
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.operand.valueOf(), 10, "Operand was negated again.");
+});
+
+QUnit.test("Plus Minus on Accumulator", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.hasOperand = false;
+  calc.operand = 0;
+  calc.accumulator = bigInt(5);
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), -5, "Accumulator is negated");
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator was negated again.");
+});
+
+QUnit.test("Plus Minus on Unsigned", function(assert) {
+  var calc = setup(10, false, 8, false);
+  calc.hasOperand = true;
+  calc.operand = bigInt(10);
+  calc.accumulator = bigInt(5);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+  assert.equal(calc.operand.valueOf(), 10, "Operand is unchanged");
+});
 
 QUnit.module("Binary operations");
 QUnit.module("Unary operations");
