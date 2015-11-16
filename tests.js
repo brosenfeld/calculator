@@ -235,4 +235,39 @@ QUnit.test("Not on Accumulator updates Accumulator", function(assert) {
 });
 
 QUnit.module("Binary operations");
+QUnit.test("Binop with operand and no previous operator", function(assert) {
+  var calc = setup(16, true, 8, false);
+  calc.hasOperand = true;
+  calc.operand = bigInt(10);
+  calc.accumulator = bigInt(5);
+  calc.opEntered(OpEnum.PLUS);
+  assert.equal(calc.accumulator.valueOf(), 10, "Accumulator is replaced");
+  assert.ok(!calc.hasOperand, "Operand cleared");
+  assert.equal(calc.operation, OpEnum.PLUS, "Operator updated");
+});
+
+QUnit.test("Binop with operand and previous operator", function(assert) {
+  var calc = setup(16, true, 8, false);
+  calc.hasOperand = true;
+  calc.operand = bigInt(5);
+  calc.accumulator = bigInt(15);
+  calc.operation = OpEnum.MINUS;
+  calc.opEntered(OpEnum.PLUS);
+  assert.equal(calc.accumulator.valueOf(), 10, "Previous operation done");
+  assert.ok(!calc.hasOperand, "Operand cleared");
+  assert.equal(calc.operation, OpEnum.PLUS, "Operator updated");
+});
+
+QUnit.test("Binop without operand replaces previous operation",
+  function(assert) {
+    var calc = setup(16, true, 8, false);
+    calc.hasOperand = false;
+    calc.accumulator = bigInt(15);
+    calc.operation = OpEnum.MINUS;
+    calc.opEntered(OpEnum.PLUS);
+    assert.equal(calc.accumulator.valueOf(), 15, "Accumulator unchanged");
+    assert.ok(!calc.hasOperand, "Operand cleared");
+    assert.equal(calc.operation, OpEnum.PLUS, "Operator updated");
+  });
+
 QUnit.module("Changing modes");

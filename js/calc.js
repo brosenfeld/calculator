@@ -184,7 +184,7 @@ Calc.prototype.opEntered = function(op) {
     }
 
     this.operation = op;
-    this.operand = bigInt.zero;
+    this.clearOperand = true;
   }
   // Handle unary operations.
   else if (op in unaryOperations) {
@@ -192,13 +192,9 @@ Calc.prototype.opEntered = function(op) {
       var argument = this.hasOperand ? this.operand : this.accumulator;
       this.accumulator = this.keepInBounds(unaryOperations[op](argument));
       this.clearOperand = true;
-    } else if (this.hasOperand) {
-        this.operand = this.keepInBounds(unaryOperations[op](this.operand));
     } else {
-      // Replace the binary operation.
-      this.accumulator =
-        this.keepInBounds(unaryOperations[op](this.accumulator));
-      this.clearOperation = true;
+      // Assumes the presence of an operand.
+      this.operand = this.keepInBounds(unaryOperations[op](this.operand));
     }
   }
 
