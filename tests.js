@@ -165,6 +165,17 @@ QUnit.test("Equals", function(assert) {
   assert.deepEqual(calc.operation, null, "Operation is cleared");
 });
 
+QUnit.module("Number Utilities");
+
+QUnit.test("Get equivalent positive already positive", function(assert) {
+  assert.equal(getEquivalentPositive(bigInt(5), 8).valueOf(), 5, "Passed");
+});
+
+QUnit.test("Get equivalent positive for negative", function(assert) {
+  assert.equal(getEquivalentPositive(bigInt(-1), 8).valueOf(), 255, "Passed");
+  assert.equal(getEquivalentPositive(bigInt(-128), 8).valueOf(), 128, "Passed");
+});
+
 QUnit.module("Unary operations");
 QUnit.test("Plus Minus on operand", function(assert) {
   var calc = setup(10, false, 8, true);
@@ -269,5 +280,8 @@ QUnit.test("Binop without operand replaces previous operation",
     assert.ok(!calc.hasOperand, "Operand cleared");
     assert.equal(calc.operation, OpEnum.PLUS, "Operator updated");
   });
+
+// Only need to test logical right shift and rotate left. Other binary
+// operations are directly from BigInteger.
 
 QUnit.module("Changing modes");
