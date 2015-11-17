@@ -37,16 +37,18 @@ binaryOperations[OpEnum.MOD] = function(accumulator, operand, length) {
 };
 
 binaryOperations[OpEnum.LEFT_SHIFT] = function(accumulator, operand, length) {
+  checkShiftDistance(operand, length);
   return accumulator.shiftLeft(operand);
 };
 
 binaryOperations[OpEnum.RIGHT_SHIFT] = function(accumulator, operand, length) {
+  checkShiftDistance(operand, length);
   return accumulator.shiftRight(operand);
 };
 
 binaryOperations[OpEnum.LOGICAL_RIGHT_SHIFT] = function(accumulator, operand,
     length) {
-  if (operand >= length) return 0;
+  checkShiftDistance(operand, length);
   
   // Use a bit mask to get rid of the leading ones.
   var mask = bigInt(2).pow(length - operand).minus(1);
