@@ -5,11 +5,13 @@
  */
 function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
-  var areOperandClearsEnabled = false;
-  var lastOp = null;
-  var inErrorMode = false;
+
   var activeBase = "#hex";
   var activeSignMode = "#signed";
+  var areOperandClearsEnabled = false;
+  var enableEqualsOnNumberEntered = false;
+  var inErrorMode = false;
+  var lastOp = null;
 
   /**
    * Displays the binary representation of a number.
@@ -114,7 +116,7 @@ function View(calc) {
 
     // Operation in progress: display accumulator, display operand, and show
     // operand bits.
-    else if (calc.operation !== null) {
+    else if (calc.operation !== null && calc.hasOperand) {
       displayNumber(calc.accumulator, accumulatorClass, false);
       displayNumber(calc.operand, operandClass, true);
       $( "." + operatorClass ).text(lastOp.text());
@@ -168,11 +170,19 @@ function View(calc) {
     $( this ).addClass(numInactive);
     calc.numberEntered($( this ).text());
     updateDisplay();
-    // Check if delete and clear should be enabled.
-    if (calc.hasOperand && !areOperandClearsEnabled) {
-      areOperandClearsEnabled = true;
-      $( "#CLEAR" ).each(enableOp);
-      $( "#DEL" ).each(enableOp);
+
+    if (calc.hasOperand) {
+      // Check if delete and clear should be enabled.
+      if (!areOperandClearsEnabled) {
+        areOperandClearsEnabled = true;
+        $( "#CLEAR" ).each(enableOp);
+        $( "#DEL" ).each(enableOp);
+      }
+      // Check if equals should be enabled.
+      if (enableEqualsOnNumberEntered) {
+        $( "#EQUALS").each(enableOp);
+        enableEqualsOnNumberEntered = false;
+      }
     }
   }
 
@@ -194,19 +204,25 @@ function View(calc) {
     $( this ).removeClass(opActive);
     $( this ).addClass(opInactive);
     var op = $( this ).attr('id');
-    calc.opEntered(op);
+    var wasSuccess = calc.opEntered(op);
 
-    // Depending on the operation either show the operand or accumulator and
-    // potentially enable or disable the equals operaiton.
-    if (op == OpEnum.ALL_CLEAR || op == OpEnum.EQUALS) {
-      if (inErrorMode && op == OpEnum.ALL_CLEAR) exitErrorMode();
-      $( "#EQUALS").each(disableOp);
-      clearLastOp();
-    } else if (op in binaryOperations) {
-      clearLastOp();
-      lastOp = $( this );
-      lastOp.css("color", lastOpColor);
-      $( "#EQUALS").each(enableOp);
+    // Depending on the operation potentially enable or disable the equals
+    // operaiton and update the last operation.
+    if (wasSuccess) {
+      if (op == OpEnum.ALL_CLEAR) {
+        if (inErrorMode) exitErrorMode();
+        enableEqualsOnNumberEntered = false;
+        $( "#EQUALS").each(disableOp);
+        clearLastOp();
+      } else if (op == OpEnum.EQUALS) {
+        $( "#EQUALS").each(disableOp);
+        clearLastOp();
+      } else if (op in binaryOperations) {
+        clearLastOp();
+        lastOp = $( this );
+        lastOp.css("color", lastOpColor);
+        enableEqualsOnNumberEntered = true;
+      }
     }
 
     // Check if delete and clear should be disabled.
