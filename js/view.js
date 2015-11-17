@@ -7,6 +7,9 @@ function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
   var areOperandClearsEnabled = false;
   var lastOp = null;
+  var inErrorMode = false;
+  var activeBase = "#hex";
+  var activeSignMode = "#signed";
 
   /**
    * Displays the binary representation of a number.
@@ -44,11 +47,11 @@ function View(calc) {
    * @param {boolean} Whether or not to update the bit display.
    */
   function displayNumber(value, type, shouldDisplayBin) {
-    $( "#dec > .values > " + type).text(value.toString(10));
+    $( "#dec > .values > ." + type).text(value.toString(10));
     var hexString = (value < 0) ?
       getHexNegative(value, calc.bitLength) :
       value.toString(16).toUpperCase();
-    $( "#hex > .values > " + type).text(hexString);
+    $( "#hex > .values > ." + type).text(hexString);
     if (shouldDisplayBin) displayBin(hexString);
   }
 
@@ -56,39 +59,84 @@ function View(calc) {
    * @param {String} The class of the fields to clear the number from.
    */
   function clearFields(type) {
-    $( "#dec > .values > " + type).text("");
-    $( "#hex > .values > " + type).text("");
+    $( "#dec > .values > ." + type).text("");
+    $( "#hex > .values > ." + type).text("");
+  }
+
+  /**
+   * @param {String} The error message to display.
+   */
+  function displayError(error) {
+    // Display the error message in the accumulator fields.
+    $( "#dec > .values > ." + accumulatorClass).text(error);
+    $( "#hex > .values > ." + accumulatorClass).text(error);
+
+    // Clear the operator and operands.
+    clearFields(operandClass);
+    clearFields(operatorClass);
+
+    // Make text big for accumulator
+    $( "." + operandClass ).removeClass("only");
+    $( "." + accumulatorClass ).addClass("only");
+
+    // Show zeros for binary
+    displayBin("0");
+
+    // Disable all keys
+    $( "." + numEnabled).each(disableNumber);
+    $( "." + opEnabled).each(disableOp);
+
+    lastOp = null;
+    $( "#ALL_CLEAR").each(enableOp);
+    inErrorMode = true;
+  }
+
+  /**
+   * Take the view out of error mode.
+   */
+  function exitErrorMode() {
+    inErrorMode = false;
+    $( "." + numDisabled ).each(enableNumber); // Re-enable the number buttons.
+    $( "." + opDisabled ).each(enableOp);      // Re-enable the operations.
+    $( activeBase ).click();                   // Reset the correct base.
+    $( activeSignMode ).click();               // Reset the correct sign mode.
+    disableDelAndClear();
   }
 
   /**
    * Updates the display to reflect the state of the calculator.
    */
   function updateDisplay() {
+    // First priority is to display error.
+    if (calc.error !== null) {
+      displayError(calc.error);
+    }
+
     // Operation in progress: display accumulator, display operand, and show
     // operand bits.
-    if (calc.operation !== null) {
+    else if (calc.operation !== null) {
       displayNumber(calc.accumulator, accumulatorClass, false);
       displayNumber(calc.operand, operandClass, true);
-      $( ".operator" ).text(lastOp.text());
-      $( ".operand" ).removeClass("only");
-      $( ".acc" ).removeClass("only");
+      $( "." + operatorClass ).text(lastOp.text());
+      $( "." + operandClass ).removeClass("only");
+      $( "." + accumulatorClass ).removeClass("only");
     }
 
     // No operand: clear operand, display accumulator, show accumulator bits.
     else if (!calc.hasOperand) {
       clearFields(operandClass);
+      clearFields(operatorClass);
       displayNumber(calc.accumulator, accumulatorClass, true);
-      $( ".acc" ).addClass("only");
-      $( ".operator" ).text("");
+      $( "." + accumulatorClass ).addClass("only");
     }
 
     // Operand replacing accumulator: clear accumulator, display opearnd,
     // show operand bits.
     else {
       clearFields(accumulatorClass);
+      clearFields(operatorClass);
       displayNumber(calc.operand, operandClass, true);
-      $( ".operand" ).addClass("only");
-      $( ".operator" ).text("");
+      $( "." + operandClass ).addClass("only");
     }
   }
 
@@ -150,26 +198,20 @@ function View(calc) {
 
     // Depending on the operation either show the operand or accumulator and
     // potentially enable or disable the equals operaiton.
-    switch (op) {
-      case OpEnum.ALL_CLEAR:
-      case OpEnum.EQUALS:
-        $( "#EQUALS").each(disableOp);
-        clearLastOp();
-        break;
-      default:
-        if (op in binaryOperations) {
-          clearLastOp();
-          lastOp = $( this );
-          lastOp.css("color", lastOpColor);
-          $( "#EQUALS").each(enableOp);
-        }
+    if (op == OpEnum.ALL_CLEAR || op == OpEnum.EQUALS) {
+      if (inErrorMode && op == OpEnum.ALL_CLEAR) exitErrorMode();
+      $( "#EQUALS").each(disableOp);
+      clearLastOp();
+    } else if (op in binaryOperations) {
+      clearLastOp();
+      lastOp = $( this );
+      lastOp.css("color", lastOpColor);
+      $( "#EQUALS").each(enableOp);
     }
 
     // Check if delete and clear should be disabled.
     if (areOperandClearsEnabled && !calc.hasOperand) {
-      areOperandClearsEnabled = false;
-      $( "#CLEAR" ).each(disableOp);
-      $( "#DEL" ).each(disableOp);
+      disableDelAndClear();
     }
 
     updateDisplay();
@@ -207,6 +249,7 @@ function View(calc) {
    * Enable an operation button.
    */
   function enableOp() {
+     $( this ).css("color", "");       // Remove added colors.
      $( this ).removeClass(opDisabled);
      $( this ).addClass(opEnabled);
      $( this ).each(setupOpEvents);
@@ -216,6 +259,7 @@ function View(calc) {
    * Disables an operation button.
    */
   function disableOp() {
+    $( this ).css("color", "");        // Remove added colors.
     $( this ).removeClass(opEnabled);
     $( this ).addClass(opDisabled);
     $( this ).off("mouseup").off("mousedown");
@@ -223,9 +267,21 @@ function View(calc) {
   }
 
   /**
+   * Disables the delete and clear buttons.
+   */
+  function disableDelAndClear() {
+    areOperandClearsEnabled = false;
+    $( "#CLEAR" ).each(disableOp);
+    $( "#DEL" ).each(disableOp);
+  }
+
+  /**
    * Handle mode changes for signed and unsigned.
    */
   $( ".sign" ).click(function() {
+    if (inErrorMode) return;
+    activeSignMode = "#" + $(this).attr("id");
+
     // Highlight the new mode.
     $( ".sign" ).css("color", "white");
     $( this ).css("color", "#FF8F00");
@@ -246,6 +302,8 @@ function View(calc) {
    * Handle mode changes for bit length.
    */
   $( ".bit_length" ).click(function() {
+    if (inErrorMode) return;
+
     // Highlight the new mode.
     $( ".bit_length" ).css("color", "white");
     $( this ).css("color", "#FF8F00");
@@ -319,13 +377,17 @@ function View(calc) {
    * Handle changes in the base.
    */
   $( ".base" ).click(function() {
+    if (inErrorMode) return;
+
     // Highlight the active mode.
     $( ".base" ).css("background-color", "white");
     $(this).css("background-color", "#FFD299");
+    
+    activeBase = "#" + $(this).attr("id");
 
     // Enable and disable the appropriate numerical buttons and update the
     // calculator's base.
-    switch ($(this).attr('id')) {
+    switch ($(this).attr("id")) {
       case "bin":
         disableAll(decClass);
         disableAll(hexClass);

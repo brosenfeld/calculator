@@ -1,6 +1,7 @@
 /* DISPLAY UTILITIES */
-var accumulatorClass = ".acc";
-var operandClass = ".operand";
+var accumulatorClass = "acc";
+var operandClass = "operand";
+var operatorClass = "operator";
 
 /* KEYBOARD UTILITIES */
 var lastOpColor = "#FF8F00";

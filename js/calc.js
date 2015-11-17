@@ -11,6 +11,8 @@ function Calc() {
   this.clearOperand = true;
   this.clearOperation = true;
 
+  this.error = null; // The calculator's error message (if applicable).
+
   // The max (and min) value an operand or the accumulator can take.
   this.setBounds = function() {
     this.sUpperBound = bigInt(2).pow(this.bitLength - 1).minus(1);
@@ -123,6 +125,24 @@ Calc.prototype.numberEntered = function(button) {
 };
 
 /**
+ * Evaluates the current binary operation. Sets the error message if there is
+ * an exception.
+ * @return {boolean} Was the operation successful?
+ */
+Calc.prototype.evalBinop = function() {
+  if (!(this.operation in binaryOperations)) return;
+  var binop = binaryOperations[this.operation];
+  try {
+    var result = binop(this.accumulator, this.operand, this.bitLength);
+    this.accumulator = this.keepInBounds(result);
+    return true;
+  } catch (err) {
+    this.error = err.message;
+    return false;
+  }
+};
+
+/**
  * Called when the user presses a button corresponding to an operation.
  * @param {OpEnum} The operation.
  * @return {boolean} True if the operation was processed.
@@ -137,6 +157,11 @@ Calc.prototype.opEntered = function(op) {
     this.clearAccumulator = true;
     this.clearOperand = true;
     this.clearOperation = true;
+    this.error = null;
+  }
+  // Don't proceed if there is an error. Wait for the user to clear it.
+  else if (this.error !== null) {
+    return false;
   }
   // Clear the operand.
   else if (op == OpEnum.CLEAR) {
@@ -153,11 +178,7 @@ Calc.prototype.opEntered = function(op) {
   }
   // If there is a pending operation, execute the operation.
   else if (op == OpEnum.EQUALS && this.operation !== null) {
-    if (this.operation in binaryOperations) {
-      var binop = binaryOperations[this.operation];
-      this.accumulator =
-        this.keepInBounds(binop(this.accumulator, this.operand, this.bitLength));
-    }
+    if (this.operation in binaryOperations && !this.evalBinop()) return false;
     this.clearOperand = true;
     this.clearOperation = true;
   }
@@ -170,17 +191,17 @@ Calc.prototype.opEntered = function(op) {
   }
   // Handle binary operations.
   else if (op in binaryOperations) {
-    var binop = binaryOperations[this.operation];
-
     // If the user has entered a number, proceed with processing the operation.
     // Otherwise, replace any pending operation with the new one.
     if (this.hasOperand) {
       // If there is no pending operation, then replace the accumulator with
       // the current operand. Otherwise, execute the old operation on the
       // accumulator and operand.
-      this.accumulator = (this.operation === null) ?
-        this.operand :
-        this.keepInBounds(binop(this.accumulator, this.operand, this.bitLength));
+      if (this.operation !== null && this.operation in binaryOperations) {
+        if (!this.evalBinop()) return false;
+      } else {
+        this.accumulator = this.operand;
+      }
     }
 
     this.operation = op;
@@ -196,9 +217,12 @@ Calc.prototype.opEntered = function(op) {
       // Assumes the presence of an operand.
       this.operand = this.keepInBounds(unaryOperations[op](this.operand));
     }
+  } else {
+    return false;
   }
 
   this.updateState();
+  return true;
 };
 
 /**
