@@ -29,14 +29,15 @@ function getEquivalentNegative(number, length) {
 /**
  * Truncates a signed integer.
  * @param {BigInteger} A signed BigInteger.
- * @param {number} An int representing the max bit length for a number.
+ * @param {number} An int representing the old max bit length for a number.
+ * @param {number} An int representing the new max bit length for a number.
  * @return {BigInteger}
  */
-function truncateSigned(number, length) {
-  var unsignedBound = bigInt(2).pow(length).minus(1);
-  var positive = getEquivalentPositive(number, length);
+function truncateSigned(number, oldLength, newLength) {
+  var unsignedBound = bigInt(2).pow(newLength).minus(1);
+  var positive = getEquivalentPositive(number, oldLength);
   var truncated = positive.and(unsignedBound);
-  return unsignedToSigned(truncated, length);
+  return unsignedToSigned(truncated, newLength);
 }
 
 /**

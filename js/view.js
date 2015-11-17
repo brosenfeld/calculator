@@ -222,6 +222,10 @@ function View(calc) {
         lastOp = $( this );
         lastOp.css("color", lastOpColor);
         enableEqualsOnNumberEntered = true;
+      } else if (op in unaryOperations) {
+        // If there was no operand, the operation was on the accumulator, so
+        // clear any active binary operation.
+        if (!calc.hasOperand) clearLastOp();
       }
     }
 

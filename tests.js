@@ -19,6 +19,8 @@ QUnit.test("Initial conditions", function(assert) {
   assert.equal(calc.accumulator, bigInt.zero, "Accumulator is zero");
 });
 
+
+
 QUnit.module("Entering numbers");
 QUnit.test("Entering digits", function(assert) {
   var calc = setup(10, false, 64, true);
@@ -98,6 +100,8 @@ QUnit.test("Hitting signed limits", function(assert) {
   assert.equal(calc.operand.valueOf(), -12, "Passed lower limit"); 
 });
 
+
+
 QUnit.module("Entering operations");
 
 QUnit.test("All Clear", function(assert) {
@@ -165,8 +169,9 @@ QUnit.test("Equals", function(assert) {
   assert.deepEqual(calc.operation, null, "Operation is cleared");
 });
 
-QUnit.module("Number Utilities");
 
+
+QUnit.module("Number Utilities");
 QUnit.test("Get equivalent positive already positive", function(assert) {
   assert.equal(getEquivalentPositive(bigInt(5), 8).valueOf(), 5, "Passed");
 });
@@ -175,6 +180,39 @@ QUnit.test("Get equivalent positive for negative", function(assert) {
   assert.equal(getEquivalentPositive(bigInt(-1), 8).valueOf(), 255, "Passed");
   assert.equal(getEquivalentPositive(bigInt(-128), 8).valueOf(), 128, "Passed");
 });
+
+QUnit.test("Get equivalent negative already negative", function(assert) {
+  assert.equal(getEquivalentNegative(bigInt(-5), 8).valueOf(), -5, "Passed");
+});
+
+QUnit.test("Get equivalent negative for positive", function(assert) {
+  assert.equal(getEquivalentNegative(bigInt(255), 8).valueOf(), -1, "Passed");
+  assert.equal(getEquivalentNegative(bigInt(128), 8).valueOf(), -128, "Passed");
+});
+
+QUnit.test("Unsigned to signed", function(assert) {
+    assert.equal(unsignedToSigned(bigInt(5), 8).valueOf(), 5,
+      "Small positive number unchanged");
+    assert.equal(unsignedToSigned(bigInt(255), 8).valueOf(), -1,
+      "255 becomes -1");
+});
+
+QUnit.test("Truncate signed", function(assert) {
+    assert.equal(truncateSigned(bigInt(5), 16, 8).valueOf(), 5,
+      "Small positive number unchanged");
+    assert.equal(truncateSigned(bigInt(-1), 16, 8).valueOf(), -1,
+      "Small negative number unchanged");
+    assert.equal(truncateSigned(bigInt(255), 16, 8).valueOf(), -1,
+      "0xFF becomes -1 in 8");
+    assert.equal(truncateSigned(bigInt(256), 16, 8).valueOf(), 0,
+      "0x100 becomes 0 in 8");
+    assert.equal(truncateSigned(bigInt("FF01", 16), 16, 8).valueOf(), 1,
+      "0xFF01 becomes 1 in 8");
+    assert.equal(truncateSigned(bigInt("FF01", 16), 16, 8).valueOf(), 1,
+      "0xFF01 becomes 1 in 8");
+});
+
+
 
 QUnit.module("Unary operations");
 QUnit.test("Plus Minus on operand", function(assert) {
@@ -235,7 +273,20 @@ QUnit.test("Not on operand with operator updates operand",
     assert.equal(calc.operation, OpEnum.PLUS, "Operator unchanged");
   });
 
-QUnit.test("Not on Accumulator updates Accumulator", function(assert) {
+QUnit.test("Not with operator but no operand updates accumulator",
+function(assert) {
+  var calc = setup(16, true, 8, true);
+  calc.hasOperand = false;
+  calc.operand = bigInt.zero;
+  calc.accumulator = bigInt(1);
+  calc.opEntered(OpEnum.NOT);
+  assert.equal(calc.accumulator.valueOf(), -2, "Accumulator correct");
+  assert.equal(calc.operand.valueOf(), 0, "Operand unchanged");
+  calc.opEntered(OpEnum.NOT);
+  assert.equal(calc.accumulator.valueOf(), 1, "Accumulator correct.");
+});
+
+QUnit.test("Not on accumulator updates accumulator", function(assert) {
   var calc = setup(16, true, 8, false);
   calc.hasOperand = false;
   calc.accumulator = bigInt(255);

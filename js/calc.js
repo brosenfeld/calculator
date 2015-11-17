@@ -42,7 +42,7 @@ function Calc() {
   // Keeps a number in the calculator's bounds.
   this.keepInBounds = function(number) {
     return this.isSigned ?
-      truncateSigned(number, this.bitLength) :
+      truncateSigned(number, this.bitLength, this.bitLength) :
       number.and(this.usUpperBound);
   };
 
@@ -214,8 +214,14 @@ Calc.prototype.opEntered = function(op) {
       this.accumulator = this.keepInBounds(unaryOperations[op](argument));
       this.clearOperand = true;
     } else {
-      // Assumes the presence of an operand.
-      this.operand = this.keepInBounds(unaryOperations[op](this.operand));
+      // If there's an operand, operate on it. Otherwise, replace the operation.
+      if (this.hasOperand) {
+        this.operand = this.keepInBounds(unaryOperations[op](this.operand));
+      } else {
+        var result = unaryOperations[op](this.accumulator);
+        this.accumulator = this.keepInBounds(result);
+        this.clearOperation = true;
+      }
     }
   } else {
     return false;
@@ -250,8 +256,10 @@ Calc.prototype.setBitLength = function(bitLength) {
   if (this.isSigned) {
     // Will implicitly sign extend.
     if (this.bitLength < oldBitLength) {
-      this.accumulator = truncateSigned(this.accumulator, this.bitLength);
-      this.operand = truncateSigned(this.operand, this.bitLength);
+      this.accumulator =
+        truncateSigned(this.accumulator, oldBitLength, this.bitLength);
+      this.operand =
+        truncateSigned(this.operand, oldBitLength, this.bitLength);
     }
   } else {
     // Check accumulator and operand and cut them down to the right bit length.
