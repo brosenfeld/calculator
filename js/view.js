@@ -49,7 +49,9 @@ function View(calc) {
    * @param {boolean} Whether or not to update the bit display.
    */
   function displayNumber(value, type, shouldDisplayBin) {
-    $( "#dec > .values > ." + type).text(value.toString(10));
+    // Handle -0 specially.
+    var decString = (value.isZero() && value.sign) ? "-0" : value.toString(10);
+    $( "#dec > .values > ." + type).text(decString);
     var hexString = (value < 0) ?
       getHexNegative(value, calc.bitLength) :
       value.toString(16).toUpperCase();

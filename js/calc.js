@@ -96,11 +96,11 @@ Calc.prototype.digitEntered = function(number) {
 
   var newOperand = this.operand.times(this.base);
 
-  // If the operand is zero or positive, add the button's value.
-  // Otherwise, subtract the button's value.
-  newOperand = (this.operand.compare(bigInt.zero) >= 0) ?
-    newOperand.plus(number) :
-    newOperand.minus(number);
+  // If the operand's sign bit is set, subtract the button's value.
+  // Otherwise, add the button's value.
+  newOperand = (this.operand.sign) ?
+    newOperand.minus(number) :
+    newOperand.plus(number);
 
   // Check bounds.
   if (this.isSigned) {
@@ -185,6 +185,9 @@ Calc.prototype.opEntered = function(op) {
   else if (op == OpEnum.PLUS_MINUS && this.isSigned) {
     if (this.hasOperand) {
       this.operand = this.operand.negate();
+    } else if (this.operation !== null) {
+      this.operand = bigInt.zero.negate();
+      this.hasOperand = true;
     } else {
       this.accumulator = this.accumulator.negate();
     }

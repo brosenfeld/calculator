@@ -169,6 +169,50 @@ QUnit.test("Equals", function(assert) {
   assert.deepEqual(calc.operation, null, "Operation is cleared");
 });
 
+QUnit.test("Plus Minus on operand", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.hasOperand = true;
+  calc.operand = bigInt(10);
+  calc.accumulator = bigInt(5);
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+  assert.equal(calc.operand.valueOf(), -10, "Operand is negated");
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.operand.valueOf(), 10, "Operand was negated again.");
+});
+
+QUnit.test("Plus Minus on accumulator", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.hasOperand = false;
+  calc.operand = 0;
+  calc.accumulator = bigInt(5);
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), -5, "Accumulator is negated");
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator was negated again.");
+});
+
+QUnit.test("Plus Minus on unsigned", function(assert) {
+  var calc = setup(10, false, 8, false);
+  calc.hasOperand = true;
+  calc.operand = bigInt(10);
+  calc.accumulator = bigInt(5);
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+  assert.equal(calc.operand.valueOf(), 10, "Operand is unchanged");
+});
+
+QUnit.test("Plus Minus with operator but no operand", function(assert) {
+  var calc = setup(10, false, 8, true);
+  calc.hasOperand = false;
+  calc.accumulator = bigInt(5);
+  calc.operation = OpEnum.PLUS;
+  calc.opEntered(OpEnum.PLUS_MINUS);
+  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
+  assert.ok(calc.hasOperand, "Has an operand");
+  assert.ok(calc.operand.isZero() && calc.operand.sign,"Operand is minus zero");
+});
+
 
 
 QUnit.module("Number Utilities");
@@ -215,38 +259,6 @@ QUnit.test("Truncate signed", function(assert) {
 
 
 QUnit.module("Unary operations");
-QUnit.test("Plus Minus on operand", function(assert) {
-  var calc = setup(10, false, 8, true);
-  calc.hasOperand = true;
-  calc.operand = bigInt(10);
-  calc.accumulator = bigInt(5);
-  calc.opEntered(OpEnum.PLUS_MINUS);
-  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
-  assert.equal(calc.operand.valueOf(), -10, "Operand is negated");
-  calc.opEntered(OpEnum.PLUS_MINUS);
-  assert.equal(calc.operand.valueOf(), 10, "Operand was negated again.");
-});
-
-QUnit.test("Plus Minus on accumulator", function(assert) {
-  var calc = setup(10, false, 8, true);
-  calc.hasOperand = false;
-  calc.operand = 0;
-  calc.accumulator = bigInt(5);
-  calc.opEntered(OpEnum.PLUS_MINUS);
-  assert.equal(calc.accumulator.valueOf(), -5, "Accumulator is negated");
-  calc.opEntered(OpEnum.PLUS_MINUS);
-  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator was negated again.");
-});
-
-QUnit.test("Plus Minus on unsigned", function(assert) {
-  var calc = setup(10, false, 8, false);
-  calc.hasOperand = true;
-  calc.operand = bigInt(10);
-  calc.accumulator = bigInt(5);
-  assert.equal(calc.accumulator.valueOf(), 5, "Accumulator is unchanged");
-  assert.equal(calc.operand.valueOf(), 10, "Operand is unchanged");
-});
-
 QUnit.test("Not on operand without operator replaces accumulator",
   function(assert) {
     var calc = setup(16, true, 8, true);
