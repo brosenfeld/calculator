@@ -71,11 +71,11 @@ function View(calc) {
    * @param {String} The error message to display.
    */
   function displayError(error) {
-    // Display the error message in the accumulator fields.
-    $( "#dec > .values > ." + accumulatorClass).text(error);
-    $( "#hex > .values > ." + accumulatorClass).text(error);
+    // Display the error message in the error fields.
+    $( "." + errorClass ).text(error);
 
-    // Clear the operator and operands.
+    // Clear all other fields.
+    clearFields(accumulatorClass);
     clearFields(operandClass);
     clearFields(operatorClass);
 
@@ -111,11 +111,12 @@ function View(calc) {
    * Updates the display to reflect the state of the calculator.
    */
   function updateDisplay() {
+    clearFields(errorClass);
+
     // First priority is to display error.
     if (calc.error !== null) {
       displayError(calc.error);
     }
-
     // Operation in progress: display accumulator, display operand, and show
     // operand bits.
     else if (calc.operation !== null && calc.hasOperand) {

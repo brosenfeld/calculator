@@ -55,6 +55,6 @@ function unsignedToSigned(number, length) {
 
 function checkShiftDistance(operand, bitLength) {
   if (operand.isNegative() || operand.compare(bitLength) > 0) {
-    throw new RangeError("Shift length out of range");
+    throw new RangeError("Shift out of range");
   }
 }

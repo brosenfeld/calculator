@@ -41,6 +41,7 @@ body {
 /* DISPLAY */
 #display {
   flex: 0 auto;
+  font-family: "Lucida Console", Monaco, monospace
 }
 
 .base {
@@ -54,20 +55,23 @@ body {
 
 .label {
   flex: 0 0 auto;
-  font-weight: bold;
   font-size: 16px;
   margin: auto 6px;
 }
 
 .values {
   flex: 1 1 0;
-  font-size: 12.5px;
+  font-size: 14px;
   margin: auto 6px;
   text-align: right;
 }
 
+.error_text {
+  font-size : 16px;
+}
+
 .only {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .operand {
