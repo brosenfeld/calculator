@@ -344,7 +344,40 @@ QUnit.test("Binop without operand replaces previous operation",
     assert.equal(calc.operation, OpEnum.PLUS, "Operator updated");
   });
 
+QUnit.test("Binop kept in bounds", function(assert) {
+  var calc = setup(16, true, 8, false);
+  calc.hasOperand = true;
+  calc.accumulator = bigInt(255);
+  calc.operand = bigInt(255);
+  calc.operation = OpEnum.PLUS;
+  calc.evalBinop();
+  assert.equal(calc.accumulator.valueOf(), 254, "Accumulator kept in bounds");
+});
+
 // Only need to test logical right shift and rotate left. Other binary
 // operations are directly from BigInteger.
+QUnit.test("Logical right shift", function(assert) {
+  var lrs = binaryOperations[OpEnum.LOGICAL_RIGHT_SHIFT];
+  assert.equal(lrs(bigInt(7), bigInt(1), 8).valueOf(), 3,
+    "Shift without leading one");
+  assert.equal(lrs(bigInt(-1), bigInt(4), 8).valueOf(), 15,
+    "Shift with leading ones");
+  assert.throws(function() {lrs(bigInt(-1), bigInt(-1), 8);},
+    RangeError,
+    "Negative length throws range error");
+  assert.throws(function() {lrs(bigInt(-1), bigInt(9), 8);},
+    RangeError,
+    "Length greater than number of bits throws range error");
+});
+
+QUnit.test("Rotate left", function(assert) {
+  var rol = binaryOperations[OpEnum.ROTATE_LEFT];
+  assert.equal(rol(bigInt("F0", 16), bigInt(4), 8).valueOf(), 15);
+  assert.ok(rol(bigInt("AA", 16), bigInt(1), 8).equals(bigInt("55", 16)));
+  assert.ok(rol(bigInt("0F", 16), bigInt(-3), 8).equals(bigInt("E1", 16)));
+  assert.ok(rol(bigInt("0F", 16), bigInt(-11), 8).equals(bigInt("E1", 16)));
+});
+
+// TODO: Test error handling.
 
 QUnit.module("Changing modes");
