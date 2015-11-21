@@ -90,8 +90,8 @@ function View(calc) {
     $( "." + numEnabled).each(disableNumber);
     $( "." + opEnabled).each(disableOp);
 
-    lastOp = null;
     $( "#ALL_CLEAR").each(enableOp);
+    $( "#CLEAR").each(enableOp);
     inErrorMode = true;
   }
 
@@ -176,11 +176,8 @@ function View(calc) {
 
     if (calc.hasOperand) {
       // Check if delete and clear should be enabled.
-      if (!areOperandClearsEnabled) {
-        areOperandClearsEnabled = true;
-        $( "#CLEAR" ).each(enableOp);
-        $( "#DEL" ).each(enableOp);
-      }
+      if (!areOperandClearsEnabled) enableDelAndClear();
+
       // Check if equals should be enabled.
       if (enableEqualsOnNumberEntered) {
         $( "#EQUALS").each(enableOp);
@@ -217,6 +214,10 @@ function View(calc) {
         enableEqualsOnNumberEntered = false;
         $( "#EQUALS").each(disableOp);
         clearLastOp();
+      } else if (op == OpEnum.CLEAR && inErrorMode) {
+        exitErrorMode();
+        lastOp.css("color", lastOpColor);
+        enableDelAndClear();
       } else if (op == OpEnum.EQUALS) {
         $( "#EQUALS").each(disableOp);
         clearLastOp();
@@ -296,6 +297,15 @@ function View(calc) {
     areOperandClearsEnabled = false;
     $( "#CLEAR" ).each(disableOp);
     $( "#DEL" ).each(disableOp);
+  }
+
+  /**
+   * Enables the delete and clear buttons.
+   */
+  function enableDelAndClear() {
+    areOperandClearsEnabled = true;
+    $( "#CLEAR" ).each(enableOp);
+    $( "#DEL" ).each(enableOp);
   }
 
   /**

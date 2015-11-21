@@ -159,13 +159,14 @@ Calc.prototype.opEntered = function(op) {
     this.clearOperation = true;
     this.error = null;
   }
+  // Clear the operand.
+  else if (op == OpEnum.CLEAR) {
+    if (this.error === null) this.operand = bigInt.zero;
+    this.error = null;
+  }
   // Don't proceed if there is an error. Wait for the user to clear it.
   else if (this.error !== null) {
     return false;
-  }
-  // Clear the operand.
-  else if (op == OpEnum.CLEAR) {
-    this.operand = bigInt.zero;
   }
   // Delete the last digit entered.
   else if (op == OpEnum.DEL) {
