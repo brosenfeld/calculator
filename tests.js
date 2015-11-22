@@ -213,6 +213,11 @@ QUnit.test("Plus Minus with operator but no operand", function(assert) {
   assert.ok(calc.operand.isZero() && calc.operand.sign,"Operand is minus zero");
 });
 
+QUnit.test("Unknown operation", function(assert) {
+  var calc = new Calc();
+  assert.notOk(calc.opEntered(OpEnum.UnknownOp), "Check operation not handled");
+});
+
 
 
 QUnit.module("Number Utilities");
