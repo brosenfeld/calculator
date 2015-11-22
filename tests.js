@@ -291,16 +291,17 @@ QUnit.test("Not on operand with operator updates operand",
   });
 
 QUnit.test("Not with operator but no operand updates accumulator",
-function(assert) {
-  var calc = setup(16, true, 8, true);
-  calc.hasOperand = false;
-  calc.operand = bigInt.zero;
-  calc.accumulator = bigInt(1);
-  calc.opEntered(OpEnum.NOT);
-  assert.equal(calc.accumulator.valueOf(), -2, "Accumulator correct");
-  assert.equal(calc.operand.valueOf(), 0, "Operand unchanged");
-  calc.opEntered(OpEnum.NOT);
-  assert.equal(calc.accumulator.valueOf(), 1, "Accumulator correct.");
+  function(assert) {
+    var calc = setup(16, true, 8, true);
+    calc.hasOperand = false;
+    calc.operand = bigInt.zero;
+    calc.accumulator = bigInt(1);
+    calc.operation = OpEnum.PLUS;
+    calc.opEntered(OpEnum.NOT);
+    assert.equal(calc.accumulator.valueOf(), -2, "Accumulator correct");
+    assert.equal(calc.operand.valueOf(), 0, "Operand unchanged");
+    calc.opEntered(OpEnum.NOT);
+    assert.equal(calc.accumulator.valueOf(), 1, "Accumulator correct.");
 });
 
 QUnit.test("Not on accumulator updates accumulator", function(assert) {
