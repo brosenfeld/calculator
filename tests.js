@@ -378,6 +378,50 @@ QUnit.test("Rotate left", function(assert) {
   assert.ok(rol(bigInt("0F", 16), bigInt(-11), 8).equals(bigInt("E1", 16)));
 });
 
-// TODO: Test error handling.
+QUnit.module("Error handling");
+QUnit.test("Error set", function(assert) {
+  var calc = setup(16, true, 8, false);
+  calc.hasOperand = true;
+  calc.accumulator = bigInt(255);
+  calc.operand = bigInt(0);
+  calc.operation = OpEnum.DIVIDE;
+  assert.notOk(calc.error, "No error initially");
+  calc.evalBinop();
+  assert.ok(calc.error, "Error after divide by zero");
+  assert.equal(calc.accumulator.valueOf(), 255, "Accumulator unchanged");
+});
+
+QUnit.test("Can't do other operations when error set", function(assert) {
+  var calc = setup(16, true, 8, false);
+  calc.error = "Error";
+  calc.hasOperand = true;
+  calc.accumulator = bigInt(255);
+  calc.operand = bigInt(0);
+  assert.notOk(calc.opEntered(OpEnum.PLUS), "Can't do another op");
+});
+
+QUnit.test("ALL CLEAR clears error", function(assert) {
+  var calc = setup(16, true, 8, false);
+  calc.error = "Error";
+  calc.opEntered(OpEnum.ALL_CLEAR);
+  assert.notOk(calc.error, "No error after all clear");
+});
+
+QUnit.test("CLEAR clears error and keeps old state", function(assert) {
+  var calc = setup(16, true, 8, false);
+  calc.accumulator = bigInt(255);
+  calc.hasOperand = true;
+  calc.operand = bigInt(9);
+  calc.operation = OpEnum.RIGHT_SHIFT;
+  assert.notOk(calc.error, "No error initially");
+  calc.opEntered(OpEnum.EQUALS);
+  assert.ok(calc.error, "Error after shift length out of range");
+  calc.opEntered(OpEnum.CLEAR);
+  assert.notOk(calc.error, "No error after clear");
+  assert.ok(calc.hasOperand, "Still has operand");
+  assert.equal(calc.operand.valueOf(), 9, "Operand unchanged");
+  assert.equal(calc.accumulator.valueOf(), 255, "Accumulator unchanged");
+  assert.equal(calc.operation, OpEnum.RIGHT_SHIFT, "Operation unchanged");
+});
 
 QUnit.module("Changing modes");
