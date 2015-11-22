@@ -430,3 +430,36 @@ QUnit.test("CLEAR clears error and keeps old state", function(assert) {
 });
 
 QUnit.module("Changing modes");
+QUnit.test("Change bit length unsigned", function(assert) {
+  var calc = setup(16, true, 16, false);
+  calc.accumulator = bigInt("EEFF", 16);
+  calc.operand = bigInt(32);
+  calc.setBitLength(8);
+  assert.equal(calc.accumulator.valueOf(), 255, "Accumulator truncated");
+  assert.equal(calc.operand.valueOf(), 32, "Operand unchanged");
+});
+
+QUnit.test("Change bit length signed", function(assert) {
+  var calc = setup(16, true, 16, true);
+  calc.accumulator = bigInt("00FF", 16);
+  calc.operand = bigInt(32);
+  calc.setBitLength(8);
+  assert.equal(calc.accumulator.valueOf(), -1,
+    "Accumulator truncated and negative");
+  assert.equal(calc.operand.valueOf(), 32, "Operand unchanged");
+});
+
+QUnit.test("Change signed mode", function(assert) {
+  var calc = setup(16, true, 8, true);
+  calc.accumulator = bigInt(-1);
+  calc.operand = bigInt(127);
+  calc.setIsSigned(false);
+  assert.equal(calc.accumulator.valueOf(), 255, "Accumulator positive");
+  assert.equal(calc.operand.valueOf(), 127, "Operand unchanged");
+  calc.setIsSigned(true);
+  assert.equal(calc.accumulator.valueOf(), -1, "Accumulator negative");
+  assert.equal(calc.operand.valueOf(), 127, "Operand unchanged");
+  calc.setIsSigned(true);
+  assert.equal(calc.accumulator.valueOf(), -1, "Accumulator unchanged");
+  assert.equal(calc.operand.valueOf(), 127, "Operand unchanged");
+});
