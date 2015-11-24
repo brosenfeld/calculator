@@ -80,8 +80,8 @@ function View(calc) {
     clearFields(operatorClass);
 
     // Make text big for accumulator
-    $( "." + operandClass ).removeClass("only");
-    $( "." + accumulatorClass ).addClass("only");
+    $( "." + operandClass ).removeClass("text_large");
+    $( "." + accumulatorClass ).addClass("text_large");
 
     // Show zeros for binary
     displayBin("0");
@@ -123,8 +123,8 @@ function View(calc) {
       displayNumber(calc.accumulator, accumulatorClass, false);
       displayNumber(calc.operand, operandClass, true);
       $( "." + operatorClass ).text(lastOp.text());
-      $( "." + operandClass ).removeClass("only");
-      $( "." + accumulatorClass ).removeClass("only");
+      $( "." + operandClass ).removeClass("text_large");
+      $( "." + accumulatorClass ).removeClass("text_large");
     }
 
     // No operand: clear operand, display accumulator, show accumulator bits.
@@ -132,7 +132,7 @@ function View(calc) {
       clearFields(operandClass);
       clearFields(operatorClass);
       displayNumber(calc.accumulator, accumulatorClass, true);
-      $( "." + accumulatorClass ).addClass("only");
+      $( "." + accumulatorClass ).addClass("text_large");
     }
 
     // Operand replacing accumulator: clear accumulator, display opearnd,
@@ -141,7 +141,7 @@ function View(calc) {
       clearFields(accumulatorClass);
       clearFields(operatorClass);
       displayNumber(calc.operand, operandClass, true);
-      $( "." + operandClass ).addClass("only");
+      $( "." + operandClass ).addClass("text_large");
     }
   }
 

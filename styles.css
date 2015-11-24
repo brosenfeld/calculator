@@ -2,6 +2,38 @@
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+/* FONT-SIZES */
+@media all and (max-width: 550px) {
+  .text_large {
+    font-size: 16px;
+    font-size: 6vw;
+  }
+
+  .values {
+    font-size: 14px;
+    font-size: 5.5vw;
+  }
+
+  .base {
+    height: 50px;
+    height: 11vw;
+  }
+}
+
+@media all and (min-width: 550px) {
+  .text_large {
+    font-size: 33px;
+  }
+
+  .values {
+    font-size: 30.25px;
+  }
+
+  .base {
+    height: 60.5px;
+  }
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -48,31 +80,21 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  height: 50px;
   border: 1px solid black;
   cursor: pointer;
+  padding: 5px 0;
 }
 
 .label {
   flex: 0 0 auto;
-  font-size: 16px;
   font-weight: bold;
   margin: auto 6px;
 }
 
 .values {
   flex: 1 1 0;
-  font-size: 14px;
   margin: auto 6px;
   text-align: right;
-}
-
-.error_text {
-  font-size : 16px;
-}
-
-.only {
-  font-size: 16px;
 }
 
 .operand {
@@ -89,6 +111,7 @@ body {
   flex-direction: column;
   height: 100px;
   font-weight: bold;
+  padding: 0px;
 }
 
 .bin_row {
