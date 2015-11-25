@@ -3,7 +3,7 @@
 }
 
 /* FONT-SIZES */
-@media all and (max-width: 550px) {
+@media all and (max-width: 600px) {
   .text_large {
     font-size: 16px;
     font-size: 6vw;
@@ -14,23 +14,80 @@
     font-size: 5.5vw;
   }
 
-  .base {
+  .num_display {
     height: 50px;
     height: 11vw;
   }
 }
 
-@media all and (min-width: 550px) {
+@media all and (min-width: 600px) {
   .text_large {
-    font-size: 33px;
+    font-size: 36px;
   }
 
   .values {
-    font-size: 30.25px;
+    font-size: 33px;
   }
 
-  .base {
-    height: 60.5px;
+  .num_display {
+    height: 66px;
+  }
+}
+
+@media all and (max-width: 300px) {
+  .bin_row {
+    font-size: 13.5px;
+    font-size: 5.5vw;
+  }
+
+  .bin_row.narrow {
+    display: flex;
+  }
+
+  .bin_row.wide {
+    display: none;
+  }
+}
+
+@media all and (min-width: 300px) and (max-width: 550px) {
+  .bin_row {
+    font-size: 16.5px;
+  }
+
+  .bin_row.narrow {
+    display: flex;
+  }
+
+  .bin_row.wide {
+    display: none;
+  }
+}
+
+@media all and (min-width: 550px) and (max-width: 800px) {
+  .bin_row {
+    font-size: 3vw;
+  }
+
+  .bin_row.narrow {
+    display: none;
+  }
+
+  .bin_row.wide {
+    display: flex;
+  }
+}
+
+@media all and (min-width: 800px) {
+  .bin_row {
+    font-size: 24px;
+  }
+
+  .bin_row.narrow {
+    display: none;
+  }
+
+  .bin_row.wide {
+    display: flex;
   }
 }
 
@@ -77,11 +134,14 @@ body {
 }
 
 .base {
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.num_display {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  border: 1px solid black;
-  cursor: pointer;
   padding: 5px 0;
 }
 
@@ -108,10 +168,11 @@ body {
 }
 
 #bin {
+  display: flex;
   flex-direction: column;
-  height: 100px;
+  flex-wrap: nowrap;
   font-weight: bold;
-  padding: 0px;
+  padding: 5px 0px;
 }
 
 .bin_row {
@@ -121,9 +182,11 @@ body {
   align-items: center;
   flex: 1 auto;
   padding: 0px 6px;
-  font-size: 13.5px;
 }
 
+.wide {
+  display: none;
+}
 
 /* KEYPAD */
 

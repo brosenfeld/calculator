@@ -23,12 +23,12 @@ function View(calc) {
     // bits.
     for (i = 0; i < length; i++) {
       var hexDigit = hexString.charAt(length - 1 - i);
-      $( "#hex" + i ).text(hexDigitToPaddedBin(hexDigit));
+      $( ".hex" + i ).text(hexDigitToPaddedBin(hexDigit));
     }
 
     // Set the remaining bits to 0.
     for (i = length; i < (BIT_DISPLAY_LENGTH / 4); i++) {
-      $( "#hex" + i ).text(hexDigitToPaddedBin("0"));
+      $( ".hex" + i ).text(hexDigitToPaddedBin("0"));
     }
   }
 
@@ -346,20 +346,25 @@ function View(calc) {
     switch (mode) {
       case 8:
         disableAllBits();
-        $( "#bin_label16 ").each(enableBits);
-        $( "#bits0-7 ").each(enableBits);
+        $( ".bin_label16" ).each(enableBits);
+        $( ".bits0-7" ).each(enableBits);
         break;
       case 16:
         disableAllBits();
-        $( "#bin16 ").each(enableBits);
+        $( ".bits0-7" ).each(enableBits);
+        $( ".bin16" ).each(enableBits);
         break;
       case 32:
         disableAllBits();
-        $( "#bin16 ").each(enableBits);
-        $( "#bin32 ").each(enableBits);
+        $( ".bits0-7" ).each(enableBits);
+        $( ".bin16" ).each(enableBits);
+        $( ".bin32" ).each(enableBits);
         break;
       default:
         $( ".bin_row" ).each(enableBits);
+        $( ".bits0-7" ).each(enableBits);
+        $( ".bin16" ).each(enableBits);
+        $( ".bin32" ).each(enableBits);
         break;
     }
 

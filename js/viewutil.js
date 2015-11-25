@@ -28,6 +28,9 @@ var disabledOpColor = "#333333";
 
 function disableAllBits() {
   $( ".bin_row" ).css("color", disabledBitsColor);
+  $( ".bits0-7" ).css("color", disabledBitsColor);
+  $( ".bin16" ).css("color", disabledBitsColor);
+  $( ".bin32" ).css("color", disabledBitsColor);
 }
 
 function enableBits() {
