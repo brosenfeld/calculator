@@ -129,7 +129,10 @@ body {
 
 /* DISPLAY */
 #display {
-  flex: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  flex: 0.5 auto;
   font-family: "Courier New", Courier, monospace
 }
 
@@ -142,6 +145,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  flex: 0.5 auto;
   padding: 5px 0;
 }
 
@@ -171,6 +175,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  flex: 1 auto;
   font-weight: bold;
   padding: 5px 0px;
 }
