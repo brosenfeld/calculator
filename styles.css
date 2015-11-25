@@ -91,6 +91,30 @@
   }
 }
 
+@media all and (min-height: 400px) and (min-width: 400px) {
+  body {
+    font-size: 3vmin;
+  }
+}
+
+@media all and (max-height: 400px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media all and (min-width: 700px) and (min-height: 700px) {
+  body {
+    font-size: 21px;
+  }
+}
+
 html {
   margin: 0;
   padding: 0;
