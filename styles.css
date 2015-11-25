@@ -181,7 +181,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex: 1 auto;
-  padding: 0px 6px;
+  padding: 0px 6px 0px 4px
 }
 
 .wide {
