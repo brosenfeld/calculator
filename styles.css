@@ -140,7 +140,7 @@ body {
   flex-wrap: nowrap;
   justify-content: space-between;
   background-color: black;
-  padding: 3px 5px;
+  padding: 1vh 2vw;
   flex: 0 auto;
 }
 
@@ -148,7 +148,7 @@ body {
   display: inline;
   color: white;
   cursor: pointer;
-  padding: 0px 5px;
+  padding-right: 10px;
 }
 
 /* DISPLAY */
@@ -163,6 +163,7 @@ body {
 .base {
   border: 1px solid black;
   cursor: pointer;
+  padding: 5px 2vw;
 }
 
 .num_display {
@@ -170,18 +171,17 @@ body {
   flex-direction: row;
   flex-wrap: nowrap;
   flex: 0.5 auto;
-  padding: 5px 0;
 }
 
 .label {
   flex: 0 0 auto;
   font-weight: bold;
-  margin: auto 6px;
+  margin: auto 0px;
 }
 
 .values {
   flex: 1 1 0;
-  margin: auto 6px;
+  margin: auto 0px;
   text-align: right;
 }
 
@@ -201,7 +201,6 @@ body {
   flex-wrap: nowrap;
   flex: 1 auto;
   font-weight: bold;
-  padding: 5px 0px;
 }
 
 .bin_row {
@@ -210,7 +209,6 @@ body {
   justify-content: space-between;
   align-items: center;
   flex: 1 auto;
-  padding: 0px 6px 0px 4px
 }
 
 .wide {
