@@ -2,6 +2,38 @@
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+.flex_column {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
+  display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -moz-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.flex_row {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
+  display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -moz-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
 /* FONT-SIZES */
 @media all and (max-width: 600px) {
   .text_large {
@@ -41,7 +73,11 @@
   }
 
   .bin_row.narrow {
-    display: flex;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
   }
 
   .bin_row.wide {
@@ -55,7 +91,11 @@
   }
 
   .bin_row.narrow {
-    display: flex;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
   }
 
   .bin_row.wide {
@@ -73,7 +113,11 @@
   }
 
   .bin_row.wide {
-    display: flex;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
   }
 }
 
@@ -87,7 +131,11 @@
   }
 
   .bin_row.wide {
-    display: flex;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
   }
 }
 
@@ -123,18 +171,19 @@ body {
   width: 100%;
   height: 100%;
   font-family: Verdana, Geneva, sans-serif;
-  display: flex;
-  flex-direction: column;
 }
 
 /* MODEBAR */
 #modebar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
   background-color: black;
   padding: 1vh 3vw;
+  -moz-flex: 0 auto;
+  -ms-flex: 0 auto;
+  -webkit-flex: 0 auto;
   flex: 0 auto;
 }
 
@@ -147,9 +196,9 @@ body {
 
 /* DISPLAY */
 #display {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  -moz-flex: 0.5 auto;
+  -ms-flex: 0.5 auto;
+  -webkit-flex: 0.5 auto;
   flex: 0.5 auto;
   font-family: "Courier New", Courier, monospace
 }
@@ -161,19 +210,25 @@ body {
 }
 
 .num_display {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  -moz-flex: 0.5 auto;
+  -ms-flex: 0.5 auto;
+  -webkit-flex: 0.5 auto;
   flex: 0.5 auto;
 }
 
 .label {
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
   font-weight: bold;
   margin: auto 0px;
 }
 
 .values {
+  -moz-flex: 1 1 0;
+  -ms-flex: 1 1 0;
+  -webkit-flex: 1 1 0;
   flex: 1 1 0;
   margin: auto 0px;
   text-align: right;
@@ -190,18 +245,25 @@ body {
 }
 
 #bin {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  -moz-flex: 1 auto;
+  -ms-flex: 1 auto;
+  -webkit-flex: 1 auto;
   flex: 1 auto;
   font-weight: bold;
 }
 
 .bin_row {
-  display: flex;
-  flex-direction: row;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -webkit-align-items: center;
   align-items: center;
+  -moz-flex: 1 auto;
+  -ms-flex: 1 auto;
+  -webkit-flex: 1 auto;
   flex: 1 auto;
 }
 
@@ -212,24 +274,37 @@ body {
 /* KEYPAD */
 
 #keypad {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
   border: 1px black solid;
+  -moz-flex: 1 auto;
+  -ms-flex: 1 auto;
+  -webkit-flex: 1 auto;
   flex: 1 auto;
 }
 
 .button_row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  -moz-flex: 1 auto;
+  -ms-flex: 1 auto;
+  -webkit-flex: 1 auto;
   flex: 1 auto;
 }
 
 .keypad_button {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -webkit-justify-content: center;
   justify-content: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -webkit-align-items: center;
   align-items: center;
+  -moz-flex: 1 1 0;
+  -ms-flex: 1 1 0;
+  -webkit-flex: 1 1 0;
   flex: 1 1 0;
   cursor: pointer;
   font-weight: bold;
