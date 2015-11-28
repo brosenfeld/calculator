@@ -1,5 +1,5 @@
 {
-  "packageId": "com.your.company.Calculator",
+  "packageId": "com.brian.rosenfeld.Calculator",
   // Android-only overrides here (e.g. icons, name, version)
   "android": {
   },
