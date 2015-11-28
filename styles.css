@@ -91,27 +91,21 @@
   }
 }
 
-@media all and (min-height: 400px) and (min-width: 400px) {
-  body {
-    font-size: 3vmin;
-  }
-}
-
-@media all and (max-height: 400px) {
-  body {
-    font-size: 12px;
-  }
-}
-
 @media all and (max-width: 400px) {
   body {
-    font-size: 12px;
+    font-size: 15px;
   }
 }
 
-@media all and (min-width: 700px) and (min-height: 700px) {
+@media all and (min-width: 400px) {
   body {
-    font-size: 21px;
+    font-size: 3.75vmin;
+  }
+}
+
+@media all and (min-width: 600px) and (min-height: 600px) {
+  body {
+    font-size: 22.5px;
   }
 }
 
@@ -140,7 +134,7 @@ body {
   flex-wrap: nowrap;
   justify-content: space-between;
   background-color: black;
-  padding: 1vh 2vw;
+  padding: 1vh 3vw;
   flex: 0 auto;
 }
 
@@ -148,7 +142,7 @@ body {
   display: inline;
   color: white;
   cursor: pointer;
-  padding-right: 10px;
+  padding-right: 4vw;
 }
 
 /* DISPLAY */
@@ -163,7 +157,7 @@ body {
 .base {
   border: 1px solid black;
   cursor: pointer;
-  padding: 5px 2vw;
+  padding: 5px 3vw;
 }
 
 .num_display {
