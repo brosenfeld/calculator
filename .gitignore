@@ -1,0 +1,5 @@
+# Folder view configuration files
+.DS_Store
+
+# Symbolic link for web version
+CalculatorWeb/styles.css
