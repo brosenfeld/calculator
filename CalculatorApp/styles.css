@@ -242,6 +242,7 @@ body {
   float: right;
   font-weight: bold;
   margin-right: 6px;
+  margin-right: 2vw;
 }
 
 #bin {
