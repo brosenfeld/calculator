@@ -2,6 +2,7 @@
  * The view for a calculator that supports different numerical bases
  * and bit lengths. This view exposes no fields or methods.
  * @param {Calc} calc A calculator model.
+ * @constructor
  */
 function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;

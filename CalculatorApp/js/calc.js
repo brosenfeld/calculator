@@ -1,5 +1,6 @@
 /**
- * A calculator that supports different numerical bases and bit lengths. 
+ * A calculator that supports different numerical bases and bit lengths.
+ * @constructor
  */
 function Calc() {
   this.baseRepresentsBits = true; // Does the current base represent the bits?
