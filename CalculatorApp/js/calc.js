@@ -53,8 +53,8 @@ function Calc() {
 /**
  * Called when the user presses a numerical button that corresponds to entering
  * bits (for example, when the user is entering binary bits).
- * @param {string} The button pressed. The button's value should correspond
- * to a bit string (ex. FF or 0).
+ * @param {string} button The button pressed. The button's value should
+ * correspond to a bit string (ex. FF or 0).
  */
 Calc.prototype.bitsEntered = function(button) {
   this.hasOperand = true;
@@ -85,8 +85,8 @@ Calc.prototype.bitsEntered = function(button) {
 
 /**
  * Called when the user presses a numerical button representing a digit.
- * @param {number} The number entered. Expected to be a single digit in the
- *     calculator's base.
+ * @param {number} number The number entered. Expected to be a single digit in
+ *     the calculator's base.
  */
 Calc.prototype.digitEntered = function(number) {
   // Basic check that the number falls between 0 and the base.
@@ -113,8 +113,8 @@ Calc.prototype.digitEntered = function(number) {
 
 /**
  * Called when the user presses a numerical button and updates the operand.
- * @param {string} The button the user pressed. Should correspond to a number
- *    that can be parsed into an integer.
+ * @param {string} button The button the user pressed. Should correspond to a
+ *    number that can be parsed into an integer.
  */
 Calc.prototype.numberEntered = function(button) {
   if (this.baseRepresentsBits) {
@@ -144,7 +144,7 @@ Calc.prototype.evalBinop = function() {
 
 /**
  * Called when the user presses a button corresponding to an operation.
- * @param {OpEnum} The operation.
+ * @param {OpEnum} op The operation.
  * @return {boolean} True if the operation was processed.
  *
  * An operation requires some combination of the following: clearing the
@@ -238,9 +238,10 @@ Calc.prototype.opEntered = function(op) {
 /**
  * Updates the calculator's base. To insure proper behavior, this method should
  * be used rather than directly setting the base.
- * @param {number} The new base. Should be an integer.
- * @param {boolean} Does the new base correspond to a bit representation?
- *     For hex, this would be true. For decimal this would be false.
+ * @param {number} base The new base. Should be an integer.
+ * @param {boolean} representsBits Does the new base correspond to a bit
+ *     representation? For hex, this would be true. For decimal this would be
+ *     false.
  */
 Calc.prototype.setBase = function(base, representsBits) {
   this.base = base;
@@ -250,7 +251,7 @@ Calc.prototype.setBase = function(base, representsBits) {
 /**
  * Update the max bit length. To insure proper behavior, this method should
  * be used rather than directly setting the bit length.
- * @param {number} The new bit length. Should be an integer.
+ * @param {number} bitLength The new bit length. Should be an integer.
  */
 Calc.prototype.setBitLength = function(bitLength) {
   var oldBitLength = this.bitLength;
@@ -275,7 +276,7 @@ Calc.prototype.setBitLength = function(bitLength) {
 /**
  * Update the mode for signed or unsigned. To insure proper behavior, this
  * method should be used rather than directly setting isSigned.
- * @param {boolean} Should the calculator be signed?
+ * @param {boolean} isSigned Should the calculator be signed?
  */
 Calc.prototype.setIsSigned = function(isSigned) {
   if (this.isSigned == isSigned) return;

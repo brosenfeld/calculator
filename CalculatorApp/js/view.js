@@ -1,7 +1,7 @@
 /**
  * The view for a calculator that supports different numerical bases
  * and bit lengths. This view exposes no fields or methods.
- * @param {Calc} A calculator model.
+ * @param {Calc} calc A calculator model.
  */
 function View(calc) {
   var BIT_DISPLAY_LENGTH = 64;
@@ -15,7 +15,7 @@ function View(calc) {
 
   /**
    * Displays the binary representation of a number.
-   * @param {String} A string representation of a hexidecimal number.
+   * @param {String} hexString A string representation of a hexidecimal number.
    */
   function displayBin(hexString) {
     var length = Math.min(hexString.length, calc.bitLength / 4);
@@ -34,8 +34,8 @@ function View(calc) {
 
   /**
    * Given a negaive BigInteger returns the appropriate hex representation.
-   * @param {number} A negative BigInteger
-   * @param {number} An int representing the max bit length for a number.
+   * @param {number} number A negative BigInteger
+   * @param {number} length An int representing the max bit length for a number.
    * @return {String} A hex string representing the number.
    */
   function getHexNegative(number, length) {
@@ -44,9 +44,9 @@ function View(calc) {
 
   /**
    * Display a new number.
-   * @param {BigInteger} A value to display
-   * @param {String} The class of the fields to display the number in.
-   * @param {boolean} Whether or not to update the bit display.
+   * @param {BigInteger} value A value to display
+   * @param {String} type The class of the fields to display the number in.
+   * @param {boolean} shouldDisplayBin Whether or not to update the bit display.
    */
   function displayNumber(value, type, shouldDisplayBin) {
     // Handle -0 specially.
@@ -60,7 +60,7 @@ function View(calc) {
   }
 
   /**
-   * @param {String} The class of the fields to clear the number from.
+   * @param {String} type The class of the fields to clear the number from.
    */
   function clearFields(type) {
     $( "#dec > .values > ." + type).text("");
@@ -68,7 +68,7 @@ function View(calc) {
   }
 
   /**
-   * @param {String} The error message to display.
+   * @param {String} error The error message to display.
    */
   function displayError(error) {
     // Display the error message in the error fields.
@@ -397,7 +397,7 @@ function View(calc) {
 
   /**
    * Disables all number button for a certain base.
-   * @param {string} The html class for the base.
+   * @param {string} base The html class for the base.
    */
   function disableAll(base) {
     $(base).each(disableNumber);
@@ -405,7 +405,7 @@ function View(calc) {
 
   /**
    * Enables all number button for a certain base.
-   * @param {string} The html class for the base.
+   * @param {string} base The html class for the base.
    */
   function enableAll(base) {
     $(base).each(enableNumber);

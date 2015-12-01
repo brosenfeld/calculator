@@ -1,8 +1,8 @@
 /**
  * Given a negative BigInteger, return the positive integer that has the
  * equivalent binary representation.
- * @param {BigInteger} A negative BigInteger
- * @param {number} An int representing the max bit length for a number.
+ * @param {BigInteger} number A negative BigInteger
+ * @param {number} length An int representing the max bit length for a number.
  * @return {BigInteger} A BigInteger with an equivalent unsigned bit
  * representation.
  */
@@ -15,8 +15,8 @@ function getEquivalentPositive(number, length) {
 /**
  * Given a positive BigInteger, return the negative integer that has the
  * equivalent binary representation.
- * @param {BigInteger} A positive BigInteger
- * @param {number} An int representing the max bit length for a number.
+ * @param {BigInteger} number A positive BigInteger
+ * @param {number} length An int representing the max bit length for a number.
  * @return {BigInteger} A BigInteger with an equivalent signed bit
  * representation.
  */
@@ -28,9 +28,11 @@ function getEquivalentNegative(number, length) {
 
 /**
  * Truncates a signed integer.
- * @param {BigInteger} A signed BigInteger.
- * @param {number} An int representing the old max bit length for a number.
- * @param {number} An int representing the new max bit length for a number.
+ * @param {BigInteger} number A signed BigInteger.
+ * @param {number} oldLength An int representing the old max bit length for a
+ *     number.
+ * @param {number} newLength An int representing the new max bit length for a
+ *     number.
  * @return {BigInteger}
  */
 function truncateSigned(number, oldLength, newLength) {
@@ -42,8 +44,8 @@ function truncateSigned(number, oldLength, newLength) {
 
 /**
  * Casts an unsigned integer to a signed integer.
- * @param {BigInteger} An unsigned BigInteger.
- * @param {number} An int representing the max bit length for a number.
+ * @param {BigInteger} number An unsigned BigInteger.
+ * @param {number} length An int representing the max bit length for a number.
  * @return {BigInteger}
  */
 function unsignedToSigned(number, length) {

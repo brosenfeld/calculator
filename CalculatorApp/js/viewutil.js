@@ -58,7 +58,7 @@ var hexToBin = {
   "C": "1100",
   "D": "1101",
   "E": "1110",
-  "F": "1111",
+  "F": "1111"
 };
 
 // TODO: Should do bounds checking here.
@@ -114,7 +114,7 @@ var keyboard = {
   189: $( "#MINUS" ),
   190: $( "#RIGHT_SHIFT" ),
   191: $( "#DIVIDE" ),       // /
-  220: $( "#OR" ),           // |
+  220: $( "#OR" )            // |
 
 };
 
@@ -131,5 +131,5 @@ var shiftKeyboard = {
   96 : $( "#double_zero" ),  // 0 keypad
   187: $( "#PLUS" ),
   190: $( "#LOGICAL_RIGHT_SHIFT" ),
-  192: $( "#PLUS_MINUS" ),   // ~
+  192: $( "#PLUS_MINUS" )    // ~
 };
