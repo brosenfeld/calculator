@@ -471,5 +471,6 @@ function View(calc) {
   $( "#signed" ).click();
   $( "#bit64" ).click();
   $( '#EQUALS').each(disableOp);
+  $( "." + opDisabled).each(disableOp);
   updateDisplay();
 }
