@@ -72,8 +72,9 @@ function View(calc) {
    * @param {String} error The error message to display.
    */
   function displayError(error) {
-    // Display the error message in the error fields.
-    $( "." + errorClass ).text(error);
+    // Display the error message and instructions in the error fields.
+    $( "#" + errorTextId ).text(error);
+    $( "#" + errorInstrId ).text("AC = reset; C = undo");
 
     // Clear all other fields.
     clearFields(accumulatorClass);

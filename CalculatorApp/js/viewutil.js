@@ -2,7 +2,9 @@
 var accumulatorClass = "acc";
 var operandClass = "operand";
 var operatorClass = "operator";
-var errorClass = "error_text";
+var errorClass = "error";
+var errorTextId = "error_text";
+var errorInstrId = "error_instr";
 
 /* KEYBOARD UTILITIES */
 var lastOpColor = "#FF8F00";

@@ -326,6 +326,7 @@ body {
 
 .num_disabled {
   color: #E68100;
+  cursor: default;
 }
 
 .op_active {
@@ -342,4 +343,5 @@ body {
 
 .op_disabled {
   color: #888888;
+  cursor: default;
 }
