@@ -79,7 +79,8 @@ function View(calc) {
     // Clear all other fields.
     clearFields(accumulatorClass);
     clearFields(operandClass);
-    clearFields(operatorClass);
+    clearFields(operatorHasOperandClass);
+    clearFields(operatorNoOperandClass);
 
     // Make text big for accumulator
     $( "." + operandClass ).removeClass("text_large");
@@ -121,18 +122,34 @@ function View(calc) {
     }
     // Operation in progress: display accumulator, display operand, and show
     // operand bits.
-    else if (calc.operation !== null && calc.hasOperand) {
-      displayNumber(calc.accumulator, accumulatorClass, false);
-      displayNumber(calc.operand, operandClass, true);
-      $( "." + operatorClass ).text(lastOp.text());
+    else if (calc.operation !== null) {
       $( "." + operandClass ).removeClass("text_large");
       $( "." + accumulatorClass ).removeClass("text_large");
+
+      // Display accumulator, display operand, and show operand bits.
+      if (calc.hasOperand) {
+        $( "." + accumulatorClass ).removeClass("acc_op");
+        displayNumber(calc.accumulator, accumulatorClass, false);
+        displayNumber(calc.operand, operandClass, true);
+        $( "." + operatorHasOperandClass ).text(lastOp.text());
+        clearFields(operatorNoOperandClass);
+      }
+
+      // Display accumulator and show accumulator bits
+      else {
+        $( "." + accumulatorClass ).addClass("acc_op");
+        displayNumber(calc.accumulator, accumulatorClass, true);
+        clearFields(operatorHasOperandClass);
+        clearFields(operandClass);
+        $( "." + operatorNoOperandClass ).text(lastOp.text());
+      }
     }
 
     // No operand: clear operand, display accumulator, show accumulator bits.
     else if (!calc.hasOperand) {
       clearFields(operandClass);
-      clearFields(operatorClass);
+      clearFields(operatorHasOperandClass);
+      clearFields(operatorNoOperandClass);
       displayNumber(calc.accumulator, accumulatorClass, true);
       $( "." + accumulatorClass ).addClass("text_large");
     }
@@ -141,7 +158,8 @@ function View(calc) {
     // show operand bits.
     else {
       clearFields(accumulatorClass);
-      clearFields(operatorClass);
+      clearFields(operatorHasOperandClass);
+      clearFields(operatorNoOperandClass);
       displayNumber(calc.operand, operandClass, true);
       $( "." + operandClass ).addClass("text_large");
     }

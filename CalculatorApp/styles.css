@@ -234,11 +234,18 @@ body {
   text-align: right;
 }
 
-.operand {
+.operand, .acc_op {
   float: right;
 }
 
-.operator {
+.operator_no {
+  float: right;
+  font-weight: bold;
+  margin-left: 6px;
+  margin-left: 2vw;
+}
+
+.operator_has {
   float: right;
   font-weight: bold;
   margin-right: 6px;
