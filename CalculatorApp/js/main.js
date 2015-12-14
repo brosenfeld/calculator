@@ -5,3 +5,7 @@ $(function() {
 window.onload = function() {
   new View(new Calc());
 };
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});

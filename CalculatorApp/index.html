@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Calculator</title>
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
   <meta name="viewport" content="width=device-width">
 </head>
@@ -16,6 +17,20 @@
       <div class="mode_option bit_length" id="bit16">16</div>
       <div class="mode_option bit_length" id="bit32">32</div>
       <div class="mode_option bit_length" id="bit64" style="padding-right: 0px">64</div>
+    </div>
+    <a href="#"
+       title="Instructions"
+       data-toggle="popover" 
+       data-placement="below"
+       data-content="<div><b>Popover Example</b> 1 - Content</div>">
+      <span class="glyphicon glyphicon-info-sign"></span>
+    </a>
+    <a href="#" title="Instructions" id="popover_instructions">
+      <span class="glyphicon glyphicon-info-sign"></span>
+    </a>
+    <div id="instructions" style="display: none">
+      <div>To change base:</div>
+      <div>Click in either the decimal, hexadecimal, or binary boxes.</div>
     </div>
   </div>
   <div class="flex_column" id="display">
@@ -148,6 +163,7 @@
   </div>
   <script type='application/javascript' src='js/fastclick.min.js'></script>
   <script src="jquery/jquery-2.1.4.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
   <script src="js/BigInteger.js"></script>
   <script src="js/ops.js"></script>
   <script src="js/binop.js"></script>
