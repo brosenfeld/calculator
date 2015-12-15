@@ -180,7 +180,7 @@ body {
   -webkit-justify-content: space-between;
   justify-content: space-between;
   background-color: black;
-  padding: 1vh 3vw;
+  padding: 1.25vh 3vw;
   -moz-flex: 0 auto;
   -ms-flex: 0 auto;
   -webkit-flex: 0 auto;
@@ -188,10 +188,13 @@ body {
 }
 
 .mode_option {
-  display: inline;
-  color: white;
-  cursor: pointer;
-  padding-right: 4vw;
+    display: inline;
+    color: white;
+    cursor: pointer;
+    margin-right: 1px;
+    padding: 0.25vh 1.5vw;
+    border: 1px solid #C0C0C0;
+    border-radius: 1vmin;
 }
 
 /* DISPLAY */
