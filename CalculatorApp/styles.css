@@ -171,6 +171,18 @@ body {
   width: 100%;
   height: 100%;
   font-family: Verdana, Geneva, sans-serif;
+  line-height: 1;
+}
+
+#fixed_container {
+  position: fixed;
+  top: 1vh;
+  right: 3vw;
+  flex: 0 auto;
+}
+
+#popover_instructions {
+  width: 200px;
 }
 
 /* MODEBAR */
@@ -180,7 +192,7 @@ body {
   -webkit-justify-content: space-between;
   justify-content: space-between;
   background-color: black;
-  padding: 1vh 3vw;
+  padding: 1vh 3vw 1vh 3vw;
   -moz-flex: 0 auto;
   -ms-flex: 0 auto;
   -webkit-flex: 0 auto;
@@ -191,7 +203,12 @@ body {
   display: inline;
   color: white;
   cursor: pointer;
-  padding-right: 4vw;
+  padding-right: 3vw;
+}
+
+#popover_glyph {
+  color: white;
+  margin: auto 0px;
 }
 
 /* DISPLAY */
@@ -216,7 +233,7 @@ body {
   flex: 0.5 auto;
 }
 
-.label {
+.base_label {
   -moz-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   -webkit-flex: 0 0 auto;

@@ -7,6 +7,26 @@
   <meta name="viewport" content="width=device-width">
 </head>
 <body class="flex_column">
+  <div id="fixed_container">
+    <a href="#" id="popover_glyph"
+       title="<span style=font-weight:bold>Instructions</span>"
+       container="#fixed_container"
+       data-html=true
+       data-toggle="popover"
+       data-placement="bottom"
+       data-content='
+       <div id="popover_instructions">
+         <div style="font-weight: bold">To change the mode:</div>
+         <div>Click any of the options in the top bar.</div><br>
+         <div style="font-weight: bold">To change the base:</div>
+         <div>Click in either the decimal, hexadecimal, or binary boxes.</div><br></a>
+         <div>To close this popup, click the info sign again.</div>
+       </div>
+       '
+       >
+      <span class="glyphicon glyphicon-info-sign" ></span>
+    </a>
+  </div>
   <div class="flex_row" id="modebar">
     <div>
       <div class="mode_option sign" id="signed">signed</div>
@@ -16,26 +36,12 @@
       <div class="mode_option bit_length" id="bit8">8</div>
       <div class="mode_option bit_length" id="bit16">16</div>
       <div class="mode_option bit_length" id="bit32">32</div>
-      <div class="mode_option bit_length" id="bit64" style="padding-right: 0px">64</div>
-    </div>
-    <a href="#"
-       title="Instructions"
-       data-toggle="popover" 
-       data-placement="below"
-       data-content="<div><b>Popover Example</b> 1 - Content</div>">
-      <span class="glyphicon glyphicon-info-sign"></span>
-    </a>
-    <a href="#" title="Instructions" id="popover_instructions">
-      <span class="glyphicon glyphicon-info-sign"></span>
-    </a>
-    <div id="instructions" style="display: none">
-      <div>To change base:</div>
-      <div>Click in either the decimal, hexadecimal, or binary boxes.</div>
+      <div class="mode_option bit_length" id="bit64" style="padding-right:6vw; margin-right: 3px">64</div>
     </div>
   </div>
   <div class="flex_column" id="display">
     <div class="base num_display flex_row" id="dec">
-      <div class="label text_large">DEC</div>
+      <div class="base_label text_large">DEC</div>
       <div class="values">
         <div class="error text_large" id="error_text"></div>
         <div class="operator_no"></div>
@@ -45,7 +51,7 @@
       </div>
     </div>
     <div class="base num_display flex_row" id="hex">
-      <div class="label text_large">HEX</div>
+      <div class="base_label text_large">HEX</div>
       <div class="values">
         <div class="error text_large" id="error_instr"></div>
         <div class="operator_no"></div>
@@ -56,7 +62,7 @@
     </div>
     <div class="base flex_column" id="bin">
       <div class="bin_row flex_row wide">
-        <div class="bin_label">[63-32]</div>
+        <div class="bin_base_label">[63-32]</div>
         <div class="bits">
           <span class="hex15">0000</span> <span class="hex14">0000</span>
           <span class="hex13">0000</span> <span class="hex12">0000</span>
@@ -65,7 +71,7 @@
         </div>
       </div>
       <div class="bin_row flex_row wide bin32">
-        <div class="bin_label16">[31-00]</div>
+        <div class="bin_base_label16">[31-00]</div>
         <div class="bits">
           <span class="hex7">0000</span> <span class="hex6">0000</span>
           <span class="hex5">0000</span> <span class="hex4">0000</span>
@@ -78,28 +84,28 @@
         </div>
       </div>
         <div class="bin_row flex_row narrow">
-          <div class="bin_label">[63-48]</div>
+          <div class="bin_base_label">[63-48]</div>
           <div class="bits">
             <span class="hex15">0000</span> <span class="hex14">0000</span>
             <span class="hex13">0000</span> <span class="hex12">0000</span>
           </div>
         </div>
         <div class="bin_row flex_row narrow">
-          <div class="bin_label">[47-32]</div>
+          <div class="bin_base_label">[47-32]</div>
           <div class="bits">
             <span class="hex11">0000</span> <span class="hex10">0000</span>
             <span class="hex9">0000</span> <span class="hex8">0000</span>
           </div>
         </div>
         <div class="bin_row flex_row narrow bin32">
-          <div class="bin_label">[31-16]</div>
+          <div class="bin_base_label">[31-16]</div>
           <div class="bits">
             <span class="hex7">0000</span> <span class="hex6">0000</span>
             <span class="hex5">0000</span> <span class="hex4">0000</span>
           </div>
         </div>
         <div class="bin_row flex_row narrow bin16">
-          <div class="bin_label bin_label16">[15-00]</div>
+          <div class="bin_base_label bin_base_label16">[15-00]</div>
           <div class="bits">
             <span class="hex3">0000</span> <span class="hex2">0000</span>
             <span class="bits0-7">

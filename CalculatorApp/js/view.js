@@ -492,12 +492,4 @@ function View(calc) {
   $( '#EQUALS').each(disableOp);
   $( "." + opDisabled).each(disableOp);
   updateDisplay();
-  
-  $("#popover_instructions").popover({
-        html : true, 
-        placement: "bottom",
-        content: function() {
-          return $('#instructions').html();
-        },
-    });
 }
