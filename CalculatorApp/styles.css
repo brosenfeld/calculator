@@ -66,10 +66,9 @@
   }
 }
 
-@media all and (max-width: 300px) {
+@media all and (min-width: 300px) and (max-width: 600px) {
   .bin_row {
-    font-size: 13.5px;
-    font-size: 5.5vw;
+    font-size: 14.5px;
   }
 
   .bin_row.narrow {
@@ -85,27 +84,9 @@
   }
 }
 
-@media all and (min-width: 300px) and (max-width: 550px) {
+@media all and (min-width: 600px) and (max-width: 1000px) {
   .bin_row {
-    font-size: 16.5px;
-  }
-
-  .bin_row.narrow {
-    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
-    display: -webkit-flex;     /* NEW - Chrome */
-    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-  }
-
-  .bin_row.wide {
-    display: none;
-  }
-}
-
-@media all and (min-width: 550px) and (max-width: 800px) {
-  .bin_row {
-    font-size: 3vw;
+    font-size: 2.7vw;
   }
 
   .bin_row.narrow {
@@ -121,9 +102,9 @@
   }
 }
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 1000px) and (max-height: 600px) {
   .bin_row {
-    font-size: 24px;
+    font-size: 27px;
   }
 
   .bin_row.narrow {
@@ -138,6 +119,25 @@
     display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
   }
 }
+
+@media all and (min-width: 1000px) and (min-height: 600px) {
+  .bin_row {
+    font-size: 2.7vw;
+  }
+
+  .bin_row.narrow {
+    display: none;
+  }
+
+  .bin_row.wide {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  }
+}
+
 
 @media all and (max-width: 400px) {
   body {
