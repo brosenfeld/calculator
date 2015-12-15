@@ -226,6 +226,10 @@ body {
   flex: 0 0 auto;
   font-weight: bold;
   margin: auto 0px;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 5px 1vw;
+  background-color: white;
 }
 
 .values {
