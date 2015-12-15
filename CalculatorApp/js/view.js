@@ -437,9 +437,11 @@ function View(calc) {
   $( ".label" ).click(function() {
     if (inErrorMode) return;
 
-    // Highlight the active mode.
+    // Highlight the active mode and underline the label.
     $( ".base" ).css("background-color", "white");
+    $( ".label" ).css("text-decoration", "none");
     $(this).parent().css("background-color", "#FFD299");
+    $(this).css("text-decoration", "underline");
     
     activeBase = "#" + $(this).parent().attr("id");
 
