@@ -105,7 +105,7 @@ function View(calc) {
     inErrorMode = false;
     $( "." + numDisabled ).each(enableNumber); // Re-enable the number buttons.
     $( "." + opDisabled ).each(enableOp);      // Re-enable the operations.
-    $( activeBase ).click();                   // Reset the correct base.
+    $( activeBase ).children(".label").click();// Reset the correct base.
     $( activeSignMode ).click();               // Reset the correct sign mode.
     disableDelAndClear();
   }
@@ -434,29 +434,29 @@ function View(calc) {
   /**
    * Handle changes in the base.
    */
-  $( ".base" ).click(function() {
+  $( ".label" ).click(function() {
     if (inErrorMode) return;
 
     // Highlight the active mode.
     $( ".base" ).css("background-color", "white");
-    $(this).css("background-color", "#FFD299");
+    $(this).parent().css("background-color", "#FFD299");
     
-    activeBase = "#" + $(this).attr("id");
+    activeBase = "#" + $(this).parent().attr("id");
 
     // Enable and disable the appropriate numerical buttons and update the
     // calculator's base.
-    switch ($(this).attr("id")) {
-      case "bin":
+    switch ($(this).text()) {
+      case "BIN":
         disableAll(decClass);
         disableAll(hexClass);
         calc.setBase(2, true);
         break;
-      case "dec":
+      case "DEC":
         enableAll(decClass);
         disableAll(hexClass);
         calc.setBase(10, false);
         break;
-      case "hex":
+      case "HEX":
         enableAll(decClass);
         enableAll(hexClass);
         calc.setBase(16, true);
@@ -486,7 +486,7 @@ function View(calc) {
   });
 
   /* SET INITIAL STATE: signed, hex, 64-bit */
-  $( "#hex" ).click();
+  $( "#hex" ).children( ".label" ).click();
   $( "#signed" ).click();
   $( "#bit64" ).click();
   $( '#EQUALS').each(disableOp);

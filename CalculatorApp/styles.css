@@ -208,7 +208,6 @@ body {
 
 .base {
   border: 1px solid black;
-  cursor: pointer;
   padding: 5px 3vw;
 }
 
@@ -230,6 +229,11 @@ body {
   border-radius: 3px;
   padding: 5px 1vw;
   background-color: white;
+  cursor: pointer;
+}
+
+#bin > .label {
+  margin-right: 3vw;
 }
 
 .values {
