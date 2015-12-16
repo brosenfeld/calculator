@@ -43,7 +43,7 @@
 
   .values {
     font-size: 14px;
-    font-size: 5.5vw;
+    font-size: 5.3vw;
   }
 
   .num_display {
@@ -58,7 +58,7 @@
   }
 
   .values {
-    font-size: 33px;
+    font-size: 31.8px;
   }
 
   .num_display {
@@ -66,9 +66,9 @@
   }
 }
 
-@media all and (min-width: 300px) and (max-width: 600px) {
+@media all and (min-width: 300px) and (max-width: 400px) {
   .bin_row {
-    font-size: 14.5px;
+    font-size: 4.5vw;
   }
 
   .bin_row.narrow {
@@ -84,7 +84,25 @@
   }
 }
 
-@media all and (min-width: 600px) and (max-width: 1000px) {
+@media all and (min-width: 400px) and (max-width: 660px) {
+  .bin_row {
+    font-size: 18px;
+  }
+
+  .bin_row.narrow {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  }
+
+  .bin_row.wide {
+    display: none;
+  }
+}
+
+@media all and (min-width: 660px) and (max-width: 1000px) {
   .bin_row {
     font-size: 2.7vw;
   }
@@ -180,7 +198,7 @@ body {
   -webkit-justify-content: space-between;
   justify-content: space-between;
   background-color: black;
-  padding: 1.5vh 3vw;
+  padding: 1.5vh 2.5vw;
   -moz-flex: 0 auto;
   -ms-flex: 0 auto;
   -webkit-flex: 0 auto;
@@ -188,13 +206,21 @@ body {
 }
 
 .mode_option {
-    display: inline;
-    color: white;
-    cursor: pointer;
-    margin-right: 1px;
-    padding: 0.5vh 1.5vw;
-    border: 1px solid #C0C0C0;
-    border-radius: 3px;
+  display: inline;
+  color: white;
+  cursor: pointer;
+  margin-right: 1px;
+  padding: 0.5vh 1.6vw;
+  border: 1px solid #C0C0C0;
+  border-radius: 3px;
+  -moz-box-shadow: 0.15vmin 0.15vmin white;
+  -webkit-box-shadow: 0.15vmin 0.15vmin white;
+  box-shadow: 0.15vmin 0.15vmin white;
+
+}
+
+.mode_option:active {
+  background-color: #C0C0C0;
 }
 
 /* DISPLAY */
@@ -225,11 +251,18 @@ body {
   flex: 0 0 auto;
   font-weight: bold;
   margin: auto 0px;
-  border: 1px solid;
+  border: 1px solid black;
   border-radius: 3px;
+  -moz-box-shadow: 0.2vmin 0.2vmin black;
+  -webkit-box-shadow: 0.2vmin 0.2vmin black;
+  box-shadow: 0.2vmin 0.2vmin black;
   padding: 5px 1vw;
   background-color: white;
   cursor: pointer;
+}
+
+.label:active {
+  color: #FF8F00;
 }
 
 #bin > .label {
