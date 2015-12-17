@@ -473,6 +473,8 @@ function View(calc) {
     if (e.shiftKey && e.which in shiftKeyboard) {
       this.shiftWasActive = true;
       shiftKeyboard[e.which].trigger("mousedown");
+    } else if (e.shiftKey && e.which in modeKeyboard) {
+      modeKeyboard[e.which].click();
     } else if (e.which in keyboard) {
       keyboard[e.which].trigger("mousedown");
     }

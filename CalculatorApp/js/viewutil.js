@@ -107,6 +107,11 @@ var keyboard = {
   8 : $( "#DEL" ),
   13 : $( "#EQUALS" ),       // Enter
   27 : $( "#ALL_CLEAR" ),    // ESC
+  76: $( "#LOGICAL_RIGHT_SHIFT" ), // l
+  77 : $( "#MOD" ),          // m
+  78 : $( "#NOT" ),          // n
+  80: $( "#PLUS_MINUS" ),    // p
+  82 : $( "#ROTATE_LEFT" ),  // r
   88: $( "#TIMES" ),         // x
   106: $( "#TIMES" ),        // keypad multiply
   107: $( "#PLUS" ),         // keypad add
@@ -117,22 +122,32 @@ var keyboard = {
   189: $( "#MINUS" ),
   190: $( "#RIGHT_SHIFT" ),
   191: $( "#DIVIDE" ),       // /
-  220: $( "#OR" )            // |
-
+  220: $( "#OR" ),           // |
 };
 
 var shiftKeyboard = {
   48 : $( "#double_zero" ),  // 0
-  49 : $( "#NOT" ),          // !
   53 : $( "#MOD" ),          // %
   54 : $( "#XOR" ),          // ^
   55 : $( "#AND" ),          // &
-  56 : $( "#TIMES" ),        // *
   65 : $( "#ALL_CLEAR" ),    // a
   67 : $( "#CLEAR" ),        // c
   70 : $( "#double_f" ),     // f
   96 : $( "#double_zero" ),  // 0 keypad
   187: $( "#PLUS" ),
-  190: $( "#LOGICAL_RIGHT_SHIFT" ),
-  192: $( "#PLUS_MINUS" )    // ~
+  189: $( "#PLUS_MINUS" ),   // -
+  190: $( "#LOGICAL_RIGHT_SHIFT" ), // >
+  192: $( "#NOT" )           // ~
+};
+
+var modeKeyboard = {
+  49 : $( "#bit8" ),         // 1
+  50 : $( "#bit16" ),        // 2
+  52 : $( "#bit32" ),        // 4
+  56 : $( "#bit64" ),        // 8
+  66 : $( "#bin > .label" ), // b
+  68 : $( "#dec > .label" ), // d
+  72 : $( "#hex > .label" ), // h
+  83: $( "#signed" ),        // s
+  85: $( "#unsigned" ),      // us
 };
