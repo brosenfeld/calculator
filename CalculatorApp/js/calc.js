@@ -55,7 +55,7 @@ function Calc() {
  * Called when the user presses a numerical button that corresponds to entering
  * bits (for example, when the user is entering binary bits).
  * @param {string} button The button pressed. The button's value should
- * correspond to a bit string (ex. FF or 0).
+ * correspond to a bit string (ex. FF or 0) in the appropriate base.
  */
 Calc.prototype.bitsEntered = function(button) {
   this.hasOperand = true;
@@ -64,8 +64,8 @@ Calc.prototype.bitsEntered = function(button) {
   if (this.operand.compare(bigInt.zero) < 0) return;
 
   // Basic bounds checking on input value.
-  var value = parseInt("0x" + button);
-  if (value >= Math.pow(this.base, button.length)) return;
+  var value = parseInt(button, this.base);
+  if (isNaN(value)) return;
 
   // Multiply the operand by the base raised to the number of digits added.
   // That is, 00 should be handled differently than 0.
