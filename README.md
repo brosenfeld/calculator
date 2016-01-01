@@ -1,17 +1,11 @@
-# Status
+# About
+This calculator is designed for systems programmers and consumer scientists. It supports 8, 16, 32, and 64-bit signed and unsigned numbers, and it allows users to cast numbers between any of these modes. Users can also enter numbers as binary, hexadecimal, or decimal inputs, and the calculator display simultaneously shows all three of these bases.
 
-## Interface
-* Appropriate numerical buttons are made available for the base.
-* Changes between signed and unsigned are reflected in the available operations.
-* Changes in bit length are shown in the binary representation.
-* Can use keyboard for input
-* Show appropriate combination of accumulator, operand, active operator, or error.
-* Entering positive or negative numbers properly shows decimal, binary, and hex and does bounds checking.
+The calculator is available through the [Chrome Web Store](https://chrome.google.com/webstore/detail/programmers-calculator/pgkgdlpegifkoofoioopnbkkfhjociaj?hl=en-US&gl=US). With the Chrome Apps for Mobile Toolchain, the calculator can be built into Android and iOS apps.
 
-## Calculator
-* Handles changes in modes (bit length, base, and is signed).
-* Catches binop errors and stores the message in an instance variable.
-* Passing unit tests for control flow, operations, and different modes.
+# Testing
+Open [test.html](test.html) in a browser to run unit tests.
 
-##Devices
-* Have run and checked as a Chrome App and on iPhone 6s, Nexus 9, and iPad
+
+# Screenshot
+![](/screenshots/START.png "")
