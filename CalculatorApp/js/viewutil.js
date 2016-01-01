@@ -122,7 +122,7 @@ var keyboard = {
   189: $( "#MINUS" ),
   190: $( "#RIGHT_SHIFT" ),
   191: $( "#DIVIDE" ),       // /
-  220: $( "#OR" ),           // |
+  220: $( "#OR" )            // |
 };
 
 var shiftKeyboard = {
@@ -149,5 +149,5 @@ var modeKeyboard = {
   68 : $( "#dec > .label" ), // d
   72 : $( "#hex > .label" ), // h
   83: $( "#signed" ),        // s
-  85: $( "#unsigned" ),      // us
+  85: $( "#unsigned" )       // us
 };

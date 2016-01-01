@@ -3,7 +3,7 @@
   "name": "Programmer's Calculator",
   "short_name": "Programmer's Calculator",
   "description": "A programmer's calculator that supports 8, 16, 32, and 64-bit signed and unsigned numbers.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "minimum_chrome_version": "38",
 
   "icons": {
