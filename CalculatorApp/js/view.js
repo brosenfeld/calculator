@@ -56,8 +56,14 @@ function View(calc) {
     var hexString = (value < 0) ?
       getHexNegative(value, calc.bitLength) :
       value.toString(16).toUpperCase();
-    $( "#hex > .values > ." + type).text(hexString);
     if (shouldDisplayBin) displayBin(hexString);
+
+    // Pad the hex string with leading zeros, so that it is bit length / 4
+    // digits long and add a space between every byte.
+    var paddedHexString =
+      ("0000000000000000" + hexString).slice(-1 * (calc.bitLength / 4));
+    var formattedHexString = paddedHexString.match(/.{1,2}/g).join(" ");
+    $( "#hex > .values > ." + type).text(formattedHexString);
   }
 
   /**

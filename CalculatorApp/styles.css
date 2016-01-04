@@ -38,12 +38,12 @@
 @media all and (max-width: 600px) {
   .text_large {
     font-size: 16px;
-    font-size: 6vw;
+    font-size: 5.5vw;
   }
 
   .values {
     font-size: 14px;
-    font-size: 5.3vw;
+    font-size: 4.8vw;
   }
 
   .num_display {
@@ -54,11 +54,11 @@
 
 @media all and (min-width: 600px) {
   .text_large {
-    font-size: 36px;
+    font-size: 33px;
   }
 
   .values {
-    font-size: 31.8px;
+    font-size: 28.8px;
   }
 
   .num_display {
