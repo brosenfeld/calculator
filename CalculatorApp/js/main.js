@@ -4,4 +4,5 @@ $(function() {
 
 window.onload = function() {
   new View(new Calc());
+  navigator.splashscreen.hide();
 };

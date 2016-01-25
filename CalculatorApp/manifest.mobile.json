@@ -1,15 +1,9 @@
 {
   "packageId": "com.brian.rosenfeld.Calculator",
-  // Android-only overrides here (e.g. icons, name, version)
   "android": {
+      "short_name": "Programmer\\'s Calculator",
+      "description": "A programmer\\'s calculator that supports 8, 16, 32, and 64-bit signed and unsigned numbers."
   },
-  // iOS-only overrides here (e.g. icons, name, version)
   "ios": {
-  },
-  // Uncomment to use system WebView rather than Crosswalk
-  // "webview": "system",
-  // Uncomment to enable use of eval()
-  // "cspUnsafeEval": true,
-  // Uncomment to enable use of inline <script>
-  // "cspUnsafeInline": true,
+  }
 }

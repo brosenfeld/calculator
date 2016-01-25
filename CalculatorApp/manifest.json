@@ -1,5 +1,6 @@
 {
   "manifest_version": 2,
+  "author": "Brian Rosenfeld",
   "name": "Programmer's Calculator",
   "short_name": "Programmer's Calculator",
   "description": "A programmer's calculator that supports 8, 16, 32, and 64-bit signed and unsigned numbers.",
@@ -8,6 +9,10 @@
 
   "icons": {
     "16": "assets/icon_16.png",
+    "36": "assets/icon_36.png",
+    "48": "assets/icon_48.png",
+    "78": "assets/icon_78.png",
+    "96": "assets/icon_96.png",
     "128": "assets/icon_128.png",
     "256": "assets/icon_256.png"
   },
